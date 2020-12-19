@@ -1,12 +1,28 @@
 @import "colorui/main.wxss";
 @import "colorui/icon.wxss";
-@import "./animate.wxss";
+@import './utils/animate.wxss';
+
 page{
   height: 100%;
+  background-image: url('http://ql9zbqtpm.hn-bkt.clouddn.com/bg1.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  overflow-y: hidden;
 }
-.img{
-  position: absolute;
-  width: 100%;
+
+.container {
   height: 100%;
-  z-index: -1;
+  display: flex;
+}
+
+.flex-verticle{
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-verticle.center{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

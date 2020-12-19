@@ -1,6 +1,7 @@
-//index.js
-//获取应用实例
-const app = getApp()
+// index.js
+// 获取应用实例
+
+const app = getApp();
 
 Page({
   data: {
@@ -10,12 +11,41 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
+
   },
 
   getUserInfo: function (e) {
-    wx.navigateTo({
-      url: '../chooseLevel/chooseLevel',
-    })
+    if (e.detail.userInfo) {
+      wx.login({
+        success: (res) => {
+          // 发送 res.code 到后台换取 openId, sessionKey, unionId
+          wx.request({
+            url: app.globalData.logUrl,
+            data: {
+              appid: wx.getAccountInfoSync().miniProgram.appId,
+              secret: '307d806d2f8954766c33d9be00ad429f',
+              grant_type: 'authorization_code',
+              js_code: res.code
+            },
+            success: (res) => {
+              wx.request({
+                url: app.globalData.serverUrl + '/setUserInfo',
+                data: {
+                  ...e.detail.userInfo,
+                  ...res.data
+                },
+                success: (res) => {
+                  console.log(res);
+                }
+              })
+            }
+          })
+        }
+      });
+      wx.navigateTo({
+        url: '../chooseLevel/chooseLevel'
+      });
+    }
 
   }
-})
+});

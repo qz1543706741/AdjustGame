@@ -1,0 +1,4 @@
+<!--components/topLink/topLink.wxml-->
+<view class="containter">
+  <image class="img" src="/image/score.png" mode="aspectFit" data-before="2048"></image>
+</view>

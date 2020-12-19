@@ -8,6 +8,26 @@ Page({
 
   },
 
+  // 校验玩家是否通过关卡
+  isPassedLevel(level){
+    
+  },
+
+  // 单人填报
+  handleSingle(e) {
+
+  },
+
+  // 人机对战
+  handleComputer() {
+
+  },
+
+  // 真实对战
+  handlePlayer() {
+
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -63,4 +83,4 @@ Page({
   onShareAppMessage: function () {
 
   }
-})
+});

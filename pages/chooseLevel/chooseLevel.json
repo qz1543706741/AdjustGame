@@ -1,5 +1,7 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "score-view": "/components/topLink/topLink"
+  },
   "navigationBarTitleText": "考研调剂小游戏",
   "backgroundColor": "#fff",
   "backgroundTextStyle": "light"

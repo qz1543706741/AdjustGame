@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/chooseLevel/chooseLevel",
-    "pages/index/index" 
+    "pages/index/index",
+    "pages/chooseLevel/chooseLevel"
   ],
   "window": {
     "navigationBarBackgroundColor": "#c1a291"
@@ -9,5 +9,6 @@
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom"
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "entryPagePath": "pages/index/index"
 }

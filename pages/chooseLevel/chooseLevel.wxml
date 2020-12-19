@@ -1,6 +1,12 @@
-<image class="img" src="http://ql9zbqtpm.hn-bkt.clouddn.com/bg1.png"></image>
-<view>
-<view class="animated flash ">
-  123456789
-</view>
+<score-view />
+<view class="container-verticle" style="padding-top:40%">
+  <view class="animate__animated animate__backInLeft animate__delay-1s .flex-verticle .center ">
+    <image id="btn-single" src="/image/btn-bg.png" mode="aspectFit" catchtap="handleSingle" />
+  </view>
+  <view class="animate__animated animate__backInLeft animate__delay-2s .flex-verticle .center">
+    <image id="btn-computer" src="/image/btn-bg.png" mode="aspectFit" catchtap="handleComputer" />
+  </view>
+  <view class="animate__animated animate__backInLeft animate__delay-3s .flex-verticle .center">
+    <image id="btn-player" src="/image/btn-bg.png" mode="aspectFit" catchtap="handlePlayer" />
+  </view>
 </view>
