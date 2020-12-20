@@ -2,6 +2,10 @@
 // 获取应用实例
 
 const app = getApp();
+const {
+  getLoginCode,
+  getLoginInfo
+} = require('../../utils/util.js')
 
 Page({
   data: {
@@ -14,38 +18,47 @@ Page({
 
   },
 
+  insertUserInfo: function (data) {
+    return new Promise((resolve, reject) => {
+      wx.request({
+        url: app.globalData.serverUrl + '/setUserInfo',
+        data,
+        success: (res) => {
+          resolve(res)
+        },
+        fail: (res) => {
+          reject(res)
+        }
+      })
+    })
+  },
+
   getUserInfo: function (e) {
     if (e.detail.userInfo) {
-      wx.login({
-        success: (res) => {
-          // 发送 res.code 到后台换取 openId, sessionKey, unionId
-          wx.request({
-            url: app.globalData.logUrl,
-            data: {
-              appid: wx.getAccountInfoSync().miniProgram.appId,
-              secret: '307d806d2f8954766c33d9be00ad429f',
-              grant_type: 'authorization_code',
-              js_code: res.code
-            },
-            success: (res) => {
-              wx.request({
-                url: app.globalData.serverUrl + '/setUserInfo',
-                data: {
-                  ...e.detail.userInfo,
-                  ...res.data
-                },
-                success: (res) => {
-                  console.log(res);
-                }
-              })
-            }
+      const userLoginInfo = async () => {
+        try {
+          const code = await getLoginCode()
+          const loginInfo = await getLoginInfo(code)
+          return await this.insertUserInfo({
+            ...(e.detail.userInfo),
+            ...loginInfo.data
           })
+        } catch (err) {
+          console.error(err);
         }
-      });
-      wx.navigateTo({
-        url: '../chooseLevel/chooseLevel'
-      });
+      }
+
+      userLoginInfo().then((r)=>{
+        console.log(r);
+        wx.navigateTo({
+          url: '../chooseLevel/chooseLevel'
+        });
+      })
+
     }
 
-  }
+  },
+
+
+
 });
