@@ -1,4 +1,5 @@
-<score-view />
+<score-view bind:show="showPay"/>
+<pay-view />
 <view class="container-verticle" style="padding-top:40%">
   <view class="animate__animated animate__backInLeft animate__delay-1s .flex-verticle .center ">
     <image id="btn-single" src="/image/btn-bg.png" mode="aspectFit" catchtap="handleSingle" />

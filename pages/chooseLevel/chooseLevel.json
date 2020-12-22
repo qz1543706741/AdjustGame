@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "score-view": "/components/topLink/topLink"
+    "score-view": "/components/topLink/topLink",
+    "pay-view":"/components/pay/pay"
   },
   "navigationBarTitleText": "考研调剂小游戏",
   "backgroundColor": "#fff",

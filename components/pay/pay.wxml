@@ -1,0 +1,2 @@
+<!--components/topLink/pay/pay.wxml-->
+<text bindtap="show">components/topLink/pay/pay.wxml</text>
