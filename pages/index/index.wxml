@@ -1,6 +1,6 @@
 <view class="flex">
-  <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="animate__animated animate__backInLeft" id="start-img">
-    <image lazy-load src="http://ql9zbqtpm.hn-bkt.clouddn.com/21.gif">
+  <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="animate__animated animate__backInLeft start-img" >
+    <image lazy-load src="http://ql9zbqtpm.hn-bkt.clouddn.com/21.gif" mode="aspectFit" style="width:48vw">
     </image>
   </button>
 </view>

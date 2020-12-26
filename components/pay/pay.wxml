@@ -1,2 +1,7 @@
 <!--components/topLink/pay/pay.wxml-->
-<text bindtap="show">components/topLink/pay/pay.wxml</text>
+<view class="container">
+  <view>调试页面</view>
+  <slot ></slot>
+  <!-- <slot name="computer"></slot>
+  <slot name="player"></slot> -->
+</view>

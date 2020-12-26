@@ -1,13 +1,24 @@
-<score-view bind:show="showPay"/>
-<pay-view />
-<view class="container-verticle" style="padding-top:40%">
-  <view class="animate__animated animate__backInLeft animate__delay-1s .flex-verticle .center ">
-    <image id="btn-single" src="/image/btn-bg.png" mode="aspectFit" catchtap="handleSingle" />
+<!-- 分数 -->
+<view class="animate__animated {{show?'':'animate__backInRight'}} {{show?'':'animate__delay-4s'}} {{show?'animate__fadeOut':''}}">
+  <score-view bind:show="showPay" openid="{{userInfo.openid}}"/>
+</view>
+
+<!-- 填报界面 -->
+<view hidden="{{!show}}" class="container animate__animated animate__delay-1s {{!show?'':'animate__zoomIn'}} {{!show?'animate__fadeOut':''}}">
+  <pay-view class="">
+    <view>single</view>
+  </pay-view>
+</view>
+
+<!-- 关卡 -->
+<view class="container-verticle" style="padding-top:40%" >
+  <view class="animate__animated {{show?'':'animate__backInLeft'}} {{show?'':'animate__delay-1s'}} {{show?'animate__fadeOut':''}}  flex-verticle center">
+    <image class="btn-single" src="/image/btn-bg.png" mode="aspectFit" catchtap="handleSingle" data-modle="1"/>
   </view>
-  <view class="animate__animated animate__backInLeft animate__delay-2s .flex-verticle .center">
-    <image id="btn-computer" src="/image/btn-bg.png" mode="aspectFit" catchtap="handleComputer" />
+  <view class="animate__animated {{show?'':'animate__backInLeft'}} {{show?'':'animate__delay-2s'}} {{show?'animate__fadeOut':''}}  flex-verticle center">
+    <image class="btn-computer" src="/image/btn-bg.png" mode="aspectFit" catchtap="handleComputer" data-modle="2"/>
   </view>
-  <view class="animate__animated animate__backInLeft animate__delay-3s .flex-verticle .center">
-    <image id="btn-player" src="/image/btn-bg.png" mode="aspectFit" catchtap="handlePlayer" />
+  <view class="animate__animated {{show?'':'animate__backInLeft'}} {{show?'':'animate__delay-3s'}} {{show?'animate__fadeOut':''}} flex-verticle center">
+    <image class="btn-player" src="/image/btn-bg.png" mode="aspectFit" catchtap="handlePlayer" data-modle="3"/>
   </view>
 </view>

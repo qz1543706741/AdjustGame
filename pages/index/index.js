@@ -2,59 +2,96 @@
 // 获取应用实例
 
 const app = getApp();
+
 const {
-  getLoginCode,
-  getLoginInfo
+  toLineObject
 } = require('../../utils/util.js')
 
 Page({
   data: {
-    StatusBar: app.globalData.StatusBar,
-    CustomBar: app.globalData.CustomBar,
-    motto: 'Hi 开发者！',
     userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
-
   },
 
-  insertUserInfo: function (data) {
+  addtUserInfo: function (data) {
     return new Promise((resolve, reject) => {
+      this.setData({
+        userInfo: data
+      })
+      app.globalData.userInfo = data
       wx.request({
-        url: app.globalData.serverUrl + '/setUserInfo',
-        data,
+        url: `${app.globalData.serverUrl}/setUserInfo`,
+        data: JSON.stringify(toLineObject(data)),
+        method: 'POST',
         success: (res) => {
           resolve(res)
         },
-        fail: (res) => {
-          reject(res)
+        fail: (err) => {
+          reject(err)
         }
       })
     })
   },
+  getLoginCode: function () {
+    return new Promise((resolve, reject) => {
+      wx.login({
+        success: (res) => {
+          resolve(res)
+        },
+        fail: (err) => {
+          reject(err)
+        }
+      })
+    })
+
+  },
+  getLoginInfo: function (code) {
+    return new Promise((resolve, reject) => {
+      wx.request({
+        url: app.globalData.logUrl,
+        data: {
+          appid: wx.getAccountInfoSync().miniProgram.appId,
+          secret: '307d806d2f8954766c33d9be00ad429f',
+          grant_type: 'authorization_code',
+          js_code: code
+        },
+        success: (res) => {
+          resolve(res)
+        },
+        fail: (err) => {
+          reject(err)
+        }
+      })
+    })
+
+  },
+
+  userLoginInfo: async function (extendInfo) {
+    try {
+      const {
+        code
+      } = await this.getLoginCode()
+
+      const {
+        data
+      } = await this.getLoginInfo(code)
+
+      await this.addtUserInfo({
+        ...extendInfo,
+        ...data
+      })
+    } catch (err) {
+      throw new Error(err.errMsg)
+    }
+  },
 
   getUserInfo: function (e) {
     if (e.detail.userInfo) {
-      const userLoginInfo = async () => {
-        try {
-          const code = await getLoginCode()
-          const loginInfo = await getLoginInfo(code)
-          return await this.insertUserInfo({
-            ...(e.detail.userInfo),
-            ...loginInfo.data
+      this.userLoginInfo(e.detail.userInfo)
+        .then(() => {
+          wx.navigateTo({
+            url: '../chooseLevel/chooseLevel'
           })
-        } catch (err) {
-          console.error(err);
-        }
-      }
-
-      userLoginInfo().then((r)=>{
-        console.log(r);
-        wx.navigateTo({
-          url: '../chooseLevel/chooseLevel'
-        });
-      })
-
+        })
     }
 
   },

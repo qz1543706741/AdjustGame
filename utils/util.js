@@ -15,40 +15,42 @@ const formatNumber = (n) => {
   n = n.toString();
   return n[1] ? n : '0' + n;
 };
-const getLoginCode = () => {
-  return new Promise((resolve, reject) => {
-    wx.login({
-      success: (res) => {
-        resolve(res.code)
-      },
-      fail: (res) => {
-        reject(res.errMsg)
-      }
-    })
-  })
+
+//批量修改对象属性名（驼峰——>下划线）
+function toLine(name) {
+  return name.replace(/([A-Z])/g, '_$1').toLowerCase();
 }
-const getLoginInfo = (code) => {
-  return new Promise((resolve, reject) => {
-    wx.request({
-      url: app.globalData.logUrl,
-      data: {
-        appid: wx.getAccountInfoSync().miniProgram.appId,
-        secret: '307d806d2f8954766c33d9be00ad429f',
-        grant_type: 'authorization_code',
-        js_code: code
-      },
-      success: (res) => {
-        resolve(res)
-      },
-      fail: (res) => {
-        reject(res)
-      }
+
+function toLineObject(obj) {
+  return Object.fromEntries(
+    Object.entries(obj).map((item) => {
+      return [toLine(item[0]), item[1]];
     })
-  })
+  );
+}
+//计算时间间隔
+function interval(old, now) {
+  const stime = Date.parse(new Date(old));
+  const etime = Date.parse(new Date(now));
+  const usedTime = etime - stime; //两个时间戳相差的毫秒数
+  const days = Math.floor(usedTime / (24 * 3600 * 1000));
+  //计算出小时数
+  const leave1 = usedTime % (24 * 3600 * 1000); //计算天数后剩余的毫秒数
+  const hours = Math.floor(leave1 / (3600 * 1000));
+  //计算相差分钟数
+  const leave2 = leave1 % (3600 * 1000); //计算小时数后剩余的毫秒数
+  const minutes = Math.floor(leave2 / (60 * 1000));
+  const time = days + "天" + hours + "时" + minutes + "分";
+  return {
+    days,
+    hours,
+    minutes,
+    time
+  }
 }
 
 module.exports = {
   formatTime: formatTime,
-  getLoginCode: getLoginCode,
-  getLoginInfo: getLoginInfo
+  toLineObject: toLineObject,
+  interval: interval
 };

@@ -19,5 +19,8 @@ Component({
    */
   methods: {
     
+  },
+  options:{
+    multipleSlots: true
   }
 })

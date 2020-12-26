@@ -1,11 +1,23 @@
 /* pages/chooseLevel/chooseLevel.wxss */
-#btn-single {
+page{
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 10px;
+}
+
+.btn-single {
   height: 80px;
   position: relative;
   margin: 20px;
 }
 
-#btn-single::before {
+.btn-single::before {
   content: '单人填报';
   display: flex;
   width: 100%;
@@ -18,13 +30,13 @@
   font-size: 1.5rem;
 }
 
-#btn-computer {
+.btn-computer {
   height: 80px;
   position: relative;
   margin: 20px;
 }
 
-#btn-computer::before {
+.btn-computer::before {
   content: '人机对战';
   display: flex;
   width: 100%;
@@ -37,13 +49,13 @@
   font-size: 1.5rem;
 }
 
-#btn-player {
+.btn-player {
   height: 80px;
   position: relative;
   margin: 20px;
 }
 
-#btn-player::before {
+.btn-player::before {
   content: '真实对战';
   display: flex;
   width: 100%;

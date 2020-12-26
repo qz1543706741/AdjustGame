@@ -6,9 +6,6 @@
   "window": {
     "navigationBarBackgroundColor": "#c1a291"
   },
-  "usingComponents": {
-    "cu-custom": "/colorui/components/cu-custom"
-  },
   "sitemapLocation": "sitemap.json",
   "entryPagePath": "pages/index/index"
 }

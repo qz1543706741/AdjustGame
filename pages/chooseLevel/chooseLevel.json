@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    "score-view": "/components/topLink/topLink",
+    "score-view": "/components/scoreView/scoreView",
     "pay-view":"/components/pay/pay"
   },
   "navigationBarTitleText": "考研调剂小游戏",

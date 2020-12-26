@@ -1,11 +1,14 @@
 // pages/chooseLevel/chooseLevel.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    userInfo: {},
+    show: false,
+    modle:''
   },
 
   // 校验玩家是否通过关卡
@@ -15,17 +18,33 @@ Page({
 
   // 单人填报
   handleSingle(e) {
-
+    const show = this.data.show
+    const {modle} = e.currentTarget.dataset
+    console.log();
+    this.setData({
+      show: !show,
+      modle,
+    })
   },
 
   // 人机对战
-  handleComputer() {
-
+  handleComputer(e) {
+    const show = this.data.show
+    const {modle} = e.currentTarget.dataset
+    this.setData({
+      show: !show,
+      modle,
+    })
   },
 
   // 真实对战
-  handlePlayer() {
-
+  handlePlayer(e) {
+    const show = this.data.show
+    const {modle} = e.currentTarget.dataset
+    this.setData({
+      show: !show,
+      modle,
+    })
   },
 
   /**
@@ -39,7 +58,13 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    this.setData({
+      userInfo: app.globalData.userInfo
+    })
+    wx.showLoading({
+      title: '加载中',
+    })
+    setTimeout(() => wx.hideLoading(), 1000)
   },
 
   /**
@@ -81,10 +106,12 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    
+
   },
 
-  showPay:function(e){
-    console.log(e.detail);
+  showPay: function (e) {
+    this.setData({
+      show: e.detail.show
+    })
   }
 });

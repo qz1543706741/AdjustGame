@@ -39,9 +39,9 @@
     "minifyWXSS": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.4.2",
+  "libVersion": "2.14.1",
   "appid": "wxb087bcede571654b",
-  "projectname": "ColorUI-template",
+  "projectname": "adjustGame",
   "debugOptions": {
     "hidedInDevtools": []
   },
