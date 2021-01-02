@@ -1,5 +1,18 @@
 // components/topLink/topLink.js
 const app = getApp()
+const proxy = app.watch(({
+  userGameInfo
+}) => {
+  getCurrentPages()[0].setData({
+    userGameInfo,
+    ['gameLevelList[0].isPassed']: userGameInfo.level_single,
+    ['gameLevelList[1].isPassed']: userGameInfo.level_computer,
+    ['gameLevelList[2].isPassed']: userGameInfo.level_player,
+    ['gameLevelList[0].isBggray']: userGameInfo.level_single,
+    ['gameLevelList[1].isBggray']: !userGameInfo.level_computer,
+    ['gameLevelList[2].isBggray']: !userGameInfo.level_player
+  })
+})
 import {
   interval
 } from '../../utils/util'
@@ -48,6 +61,7 @@ Component({
    * 组件的方法列表
    */
   methods: {
+
     openPay: function () {
       this.triggerEvent('show', {
         show: true
@@ -82,7 +96,7 @@ Component({
             this.setData({
               score: result.data.score
             })
-            app.globalData.userGameInfo = result.data
+            proxy.userGameInfo = result.data
           },
           fail: (err) => {
             console.log(err);
@@ -98,14 +112,16 @@ Component({
           this.setData({
             score: 100
           })
-          app.globalData.userGameInfo = 100
+          proxy.userGameInfo.score = 100
         } else {
           this.setData({
             score: res.data.score
           })
-          app.globalData.userGameInfo = res.data.score
+          proxy.userGameInfo = res.data
+          // console.log(getCurrentPages());
         }
       }
-    }
+    },
+
   }
 });

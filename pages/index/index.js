@@ -88,7 +88,7 @@ Page({
     if (e.detail.userInfo) {
       this.userLoginInfo(e.detail.userInfo)
         .then(() => {
-          wx.navigateTo({
+          wx.redirectTo({
             url: '../chooseLevel/chooseLevel'
           })
         })
