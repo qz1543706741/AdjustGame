@@ -6,7 +6,7 @@ module.exports = Behavior({
     }
   },
   data: {
-    userInfo: {}
+    userInfo: {},
   },
   attached: function () {},
   methods: {

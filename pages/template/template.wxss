@@ -1,0 +1,47 @@
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 13%;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 13%;
+}
+
+.flex-column .input-item {
+  margin-top: 5px;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 5px;
+  width: 95%;
+}
+
+.flex-row .input-item {
+  margin-left: 10px;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 5px;
+}
+
+.flex-column .picker-item{
+  display: flex;
+  width: 100%;
+  margin-top: 5px;
+  color: #333333;
+  height: 15%;
+  font-size: 14px;
+}
+
+.flex-column .label{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #b9b9b9 ;
+}
