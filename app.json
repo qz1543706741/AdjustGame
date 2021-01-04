@@ -1,11 +1,12 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/chooseLevel/chooseLevel"
+    "pages/chooseLevel/chooseLevel",
+    "pages/template/template"
   ],
   "window": {
     "navigationBarBackgroundColor": "#c1a291"
   },
   "sitemapLocation": "sitemap.json",
-  "entryPagePath": "pages/index/index"
+  "entryPagePath": "pages/chooseLevel/chooseLevel"
 }

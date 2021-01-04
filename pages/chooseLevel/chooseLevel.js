@@ -9,30 +9,85 @@ Page({
    */
   data: {
     userInfo: {},
-    show: false,
+    show: true,
     levelid: '',
     gameLevelList: [{
         lable: '单人填报',
         levelId: '0',
-        extendClass: 'animate__delay-1s',
+        extendClass: '',
         isPassed: false,
         isBggray: false
       },
       {
         lable: '人机对战',
         levelId: '1',
-        extendClass: 'animate__delay-2s',
+        extendClass: 'animate__delay-1s',
         isPassed: false,
         isBggray: true
       },
       {
         lable: '真实对战',
         levelId: '2',
-        extendClass: 'animate__delay-3s',
+        extendClass: 'animate__delay-2s',
         isPassed: false,
         isBggray: true
       }
-    ]
+    ],
+    formTitle: '玩家基本信息',
+    form: [{
+      lable: '玩家昵称',
+      template_name: 'input',
+      flex: 'flex-row',
+      name:'nickname'
+    }, {
+      lable: '玩家年龄',
+      template_name: 'input',
+      flex: 'flex-row',
+      name:'age'
+    }, {
+      lable: '考研信息',
+      template_name: 'label',
+      flex:'flex-column'
+    }, {
+      lable: '考研所报院校代码或名称',
+      template_name: 'input',
+      flex:'flex-column',
+      name:'adjust_school_info'
+    }, {
+      lable: '考研所报专业代码或名称',
+      template_name: 'input',
+      flex:'flex-column',
+      name:'adjust_major_info'
+    }, {
+      lable: '考研分数',
+      template_name: 'input',
+      flex: 'flex-row',
+      name:'adjust_score'
+    }, {
+      lable: '本科信息',
+      template_name: 'label',
+      flex:'flex-column',
+      name:'nickname'
+    }, {
+      lable: '本科院校代码或名称',
+      template_name: 'input',
+      flex:'flex-column',
+      name:'undergraduate_school_info'
+    }, {
+      lable: '本科专业代码或名称',
+      template_name: 'input',
+      flex:'flex-column',
+      name:'undergraduate_major_info'
+    }, {
+      lable: '本科排名',
+      template_name: 'input',
+      flex: 'flex-row',
+      name:'undergraduate_rank'
+    }]
+  },
+
+  onLoad() {
+
   },
 
   // 校验玩家是否通过关卡
@@ -62,6 +117,7 @@ Page({
     const show = this.data.show
     this.setData({
       show: !show,
+      formTitle: '请填写调剂院校信息',
       levelid
     })
   },
@@ -94,71 +150,9 @@ Page({
 
   },
 
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    // console.log(app.watch()); 
-    this.setData({
-      userInfo: app.globalData.userInfo
-    })
-    wx.showLoading({
-      title: '加载中',
-    })
-
-    setTimeout(() => wx.hideLoading(), 1000)
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
+  // submit:function(){
+  //   console.log(123);  
+  // },
 
   showPay: function (e) {
     this.setData({

@@ -1,7 +1,22 @@
 <!--components/topLink/pay/pay.wxml-->
-<view class="container">
-  <view>调试页面</view>
-  <slot ></slot>
-  <!-- <slot name="computer"></slot>
-  <slot name="player"></slot> -->
+<import src="../../pages/template/template.wxml"></import>
+<view class="dialog">
+  <view class="dialog-bg">
+    <view class="dialog-form">
+      <view class="dialog-title">{{title}}</view>
+      <form bindsubmit="formSubmit" catchreset="formReset">
+        <view style="overflow-y:scroll;height:82%;width:100%;margin-top:15px">
+          <block wx:for="{{form}}" wx:key="index">
+            <template is="{{item['template_name']}}" data="{{...item}}"></template>
+          </block>
+        </view>
+        <view class="dialog-submit">
+          <button class="submit-btn" form-type="submit">
+            <image src="../../image/btn-bg.png" mode="heightFix" style="height:100%"></image>
+          </button>
+        </view>
+      </form>
+    </view>
+  </view>
+  <image class="dialog-cancel" src="../../image/dialog_cancel.png" mode="aspectFit" catchtap="closeModal"></image>
 </view>
