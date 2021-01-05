@@ -9,7 +9,8 @@ const {
 
 Page({
   data: {
-    userInfo: {},
+    userInfo: app.globalData.userInfo,
+    imageUrl: app.globalData.imageUrl,
   },
 
   addtUserInfo: function (data) {
@@ -18,6 +19,7 @@ Page({
         userInfo: data
       })
       app.globalData.userInfo = data
+      wx.setStorageSync('userInfo', data)
       wx.request({
         url: `${app.globalData.serverUrl}/setUserInfo`,
         data: JSON.stringify(toLineObject(data)),
@@ -86,12 +88,17 @@ Page({
 
   getUserInfo: function (e) {
     if (e.detail.userInfo) {
-      this.userLoginInfo(e.detail.userInfo)
+      if (!wx.getStorageSync('userInfo'))
+        this.userLoginInfo(e.detail.userInfo)
         .then(() => {
           wx.redirectTo({
             url: '../chooseLevel/chooseLevel'
           })
         })
+      app.globalData.userInfo = wx.getStorageSync('userInfo')
+      wx.redirectTo({
+        url: '../chooseLevel/chooseLevel'
+      })
     }
 
   },

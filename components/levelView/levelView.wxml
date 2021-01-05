@@ -12,11 +12,11 @@
         </view>
         <view class="dialog-submit">
           <button class="submit-btn" form-type="submit">
-            <image src="../../image/btn-bg.png" mode="heightFix" style="height:100%"></image>
+            <image src="{{imageUrl+'btn-bg.png'}}" mode="heightFix" style="height:100%"></image>
           </button>
         </view>
       </form>
     </view>
   </view>
-  <image class="dialog-cancel" src="../../image/dialog_cancel.png" mode="aspectFit" catchtap="closeModal"></image>
+  <image class="dialog-cancel" src="{{imageUrl+'dialog_cancel.png'}}" mode="aspectFit" catchtap="closeModal"></image>
 </view>

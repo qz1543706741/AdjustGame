@@ -1,4 +1,4 @@
 <!--components/topLink/topLink.wxml-->
 <view class="containter" bindtap="openPay">
-  <image class="img" src="/image/score.png" mode="aspectFit" data-before="{{score}}"></image>
+  <image class="img" src="{{imageUrl+'score.png'}}" mode="aspectFit" data-before="{{score}}"></image>
 </view>

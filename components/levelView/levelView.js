@@ -1,4 +1,6 @@
 // components/topLink/pay/pay.js
+const app = getApp()
+
 Component({
   /**
    * 组件的属性列表
@@ -20,7 +22,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-
+    imageUrl: getApp().globalData.imageUrl
   },
 
   /**
@@ -58,17 +60,48 @@ Component({
     //表单提交
     formSubmit: function (e) {
       const detail = e.detail.value
-      //console.log(Object.entries(detail));
       if (this.formVerify(Object.entries(detail))) {
+        console.log(detail);
+        console.log(JSON.stringify(detail));
+        Object.entries(detail).forEach(items => {
+          if (items[0].indexOf('info') > -1) {
+            const key = items[0].split('_info')[0] 
+            const temp =  isNaN(parseInt(items[1])) ? '_name' : '_code'
+            // + isNaN(parseInt(items[1])) ? '_name' : '_code'
+            delete detail[items[0]]
+            Object.assign(detail, {
+              [key+temp]: items[1]
+            })
+          }
+        })
         //todo 提交表单
-        console.log('true');
-        getCurrentPages()[0].setData({
-          show: this.properties.modalShow
+        wx.request({
+          url: `${app.globalData.serverUrl}/setUserBasicInfo`,
+          method: 'POST',
+          data: JSON.stringify({
+            ...detail,
+            openid:app.globalData.userInfo.openid
+          }),
+          success: (res) => {
+            console.log(res);
+            app.globalData.user_basic_info = detail;
+            try {
+              wx.setStorageSync('user_basic_info', detail)
+              getCurrentPages()[0].setData({
+                user_basic_info: detail,
+                show: this.properties.modalShow
+              })
+            } catch (error) {
+              throw new Error(error)
+            }
+          }
+        })
+      } else {
+        wx.showToast({
+          title: '表单信息提交有误，请重新提交',
+          icon: 'none'
         })
       }
-
-
-
     }
   },
   options: {

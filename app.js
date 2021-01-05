@@ -1,9 +1,7 @@
 // app.js
 App({
   onLaunch: function () {
-    if (this.loginCallback) {
-      this.loginCallback()
-    }
+    
   },
 
   //监听全局变量的变化
@@ -23,7 +21,8 @@ App({
   globalData: {
     userInfo: null,
     userGameInfo: {},
-    serverUrl: 'http://localhost:3000',
+    serverUrl: 'http://10.221.197.151:3000',
+    imageUrl:'https://image-1304509895.cos.ap-nanjing.myqcloud.com/',
     logUrl: 'https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code'
   },
 

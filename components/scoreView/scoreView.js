@@ -28,12 +28,14 @@ Component({
    */
   data: {
     score: '0',
+    imageUrl:app.globalData.imageUrl
   },
 
   properties: {
     openid: {
       type: String,
       observer: function (newVal) {
+
         if (newVal)
           this.getUserGameInfo({
             openid: newVal
@@ -44,17 +46,6 @@ Component({
           })
       }
     }
-  },
-
-  lifetimes: {
-
-    attached: function () {
-
-    },
-
-    detached: function () {
-      // 在组件实例被从页面节点树移除时执行
-    },
   },
 
   /**
@@ -96,6 +87,7 @@ Component({
             this.setData({
               score: result.data.score
             })
+            console.log(result);
             proxy.userGameInfo = result.data
           },
           fail: (err) => {
@@ -117,6 +109,7 @@ Component({
           this.setData({
             score: res.data.score
           })
+          console.log(res.data);
           proxy.userGameInfo = res.data
           // console.log(getCurrentPages());
         }

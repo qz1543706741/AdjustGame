@@ -8,8 +8,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: {},
-    show: true,
+    userInfo: wx.getStorageSync('userInfo') || {},
+    imageUrl: app.globalData.imageUrl,
+    show: false,
     levelid: '',
     gameLevelList: [{
         lable: '单人填报',
@@ -38,56 +39,84 @@ Page({
       lable: '玩家昵称',
       template_name: 'input',
       flex: 'flex-row',
-      name:'nickname'
+      name: 'nickname',
+      placeholder: '中/英文,不得以数字开头'
     }, {
       lable: '玩家年龄',
       template_name: 'input',
       flex: 'flex-row',
-      name:'age'
+      name: 'age',
+      placeholder: '大于18岁',
+      rules: {
+        type: 'number',
+        maxlength: 2
+      }
     }, {
       lable: '考研信息',
       template_name: 'label',
-      flex:'flex-column'
+      flex: 'flex-column'
     }, {
       lable: '考研所报院校代码或名称',
       template_name: 'input',
-      flex:'flex-column',
-      name:'adjust_school_info'
+      flex: 'flex-column',
+      name: 'adjust_school_info',
+      placeholder: '建议填写院校代码'
     }, {
       lable: '考研所报专业代码或名称',
       template_name: 'input',
-      flex:'flex-column',
-      name:'adjust_major_info'
+      flex: 'flex-column',
+      name: 'adjust_major_info',
+      placeholder: '建议填写专业代码'
     }, {
       lable: '考研分数',
       template_name: 'input',
       flex: 'flex-row',
-      name:'adjust_score'
+      name: 'adjust_score',
+      placeholder: '请填写考研分数',
+      rules: {
+        type: 'number',
+        maxlength: 3
+      }
     }, {
       lable: '本科信息',
       template_name: 'label',
-      flex:'flex-column',
-      name:'nickname'
+      flex: 'flex-column',
+      name: 'nickname'
     }, {
       lable: '本科院校代码或名称',
       template_name: 'input',
-      flex:'flex-column',
-      name:'undergraduate_school_info'
+      flex: 'flex-column',
+      name: 'undergraduate_school_info',
+      placeholder: '建议填写院校代码'
     }, {
       lable: '本科专业代码或名称',
       template_name: 'input',
-      flex:'flex-column',
-      name:'undergraduate_major_info'
+      flex: 'flex-column',
+      name: 'undergraduate_major_info',
+      placeholder: '建议填写专业代码'
     }, {
-      lable: '本科排名',
+      lable: '本科专业排名',
       template_name: 'input',
       flex: 'flex-row',
-      name:'undergraduate_rank'
+      name: 'undergraduate_rank',
+      placeholder: '请填写您的本科专业排名',
+      rules: {
+        type: 'number',
+        maxlength: 5
+      }
     }]
   },
-
-  onLoad() {
-
+  onShow() {
+    try {
+      //console.log(app.globalData.userInfo);
+      console.log(app.globalData);
+      if (!wx.getStorageSync('user_basic_info'))
+        this.setData({
+          show: false
+        })
+    } catch (err) {
+      throw new Error(err)
+    }
   },
 
   // 校验玩家是否通过关卡
@@ -149,10 +178,6 @@ Page({
 
 
   },
-
-  // submit:function(){
-  //   console.log(123);  
-  // },
 
   showPay: function (e) {
     this.setData({

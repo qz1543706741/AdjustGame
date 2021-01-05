@@ -2,7 +2,8 @@
 <template name="input">
   <view class="{{flex}}">
     <view>{{lable}}</view>
-    <input class="input-item" placeholder="{{placeholder || ''}}" name="{{name}}"/>
+    <input class="input-item" placeholder="{{placeholder || ''}}" name="{{name}}" type="{{rules.type || text}}"
+      maxlength="{{rules.maxlength || 255}}" />
   </view>
 </template>
 
@@ -11,7 +12,7 @@
     <view>{{lable}}</view>
     <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange"
       value="{{multiIndex}}" range="{{multiArray}}" style="width:100%">
-      <view class="picker-item" >
+      <view class="picker-item">
         {{placeholder}}
       </view>
     </picker>

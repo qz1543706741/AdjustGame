@@ -8,5 +8,5 @@
     "navigationBarBackgroundColor": "#c1a291"
   },
   "sitemapLocation": "sitemap.json",
-  "entryPagePath": "pages/chooseLevel/chooseLevel"
+  "entryPagePath": "pages/index/index"
 }

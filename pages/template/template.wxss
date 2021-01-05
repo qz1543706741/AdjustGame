@@ -19,12 +19,16 @@
   border: 1px solid rgb(221, 221, 221);
   border-radius: 5px;
   width: 95%;
+  font-size: 24rpx;
+  padding-left: 10rpx;
 }
 
 .flex-row .input-item {
   margin-left: 10px;
   border: 1px solid rgb(221, 221, 221);
   border-radius: 5px;
+  font-size: 24rpx;
+  padding-left: 10rpx;
 }
 
 .flex-column .picker-item{

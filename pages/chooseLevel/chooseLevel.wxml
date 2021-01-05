@@ -1,5 +1,5 @@
 <!-- 分数 -->
-<view
+<view 
   class="animate__animated {{show?'':'animate__backInRight'}} {{show?'':'animate__delay-3s'}} {{show?'animate__fadeOut':''}}">
   <score-view bind:show="showPay" openid="{{userInfo.openid}}" />
 </view>
@@ -15,7 +15,7 @@
   <block wx:for="{{gameLevelList}}" wx:key="lable">
     <view
       class="animate__animated {{show?'':'animate__backInLeft'}} {{show?'':item.extendClass}} {{show?'animate__fadeOut':''}}  flex-verticle center">
-      <image class="btn-single" src="/image/btn-bg.png" mode="aspectFit" catchtap="handleFunc"
+      <image class="btn-single" src="{{imageUrl+'btn-bg.png'}}" mode="aspectFit" catchtap="handleFunc"
         data-levelId="{{item.levelId}}" data-lable="{{item.lable}}"
         style="filter:{{ item.isBggray?'grayscale(100%)':''}} " />
     </view>
