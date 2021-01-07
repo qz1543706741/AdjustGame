@@ -6,6 +6,9 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    titleShow:{
+      type: Boolean,
+    },
     modalShow: {
       type: Boolean,
     },
@@ -31,7 +34,6 @@ Component({
   methods: {
     //关闭对话框
     closeModal: function () {
-      console.log(this.properties.modalShow);
       getCurrentPages()[0].setData({
         show: this.properties.modalShow
       })
@@ -51,7 +53,6 @@ Component({
         }
       if (form instanceof Array)
         return form.every((currentValue) => {
-          //console.log(rules[currentValue[0]].test(currentValue[1]));
           if (rules[currentValue[0]].test)
             return rules[currentValue[0]].test(currentValue[1]) || rules[currentValue[0]].test(parseInt(currentValue[1]))
           return true
@@ -61,8 +62,6 @@ Component({
     formSubmit: function (e) {
       const detail = e.detail.value
       if (this.formVerify(Object.entries(detail))) {
-        console.log(detail);
-        console.log(JSON.stringify(detail));
         Object.entries(detail).forEach(items => {
           if (items[0].indexOf('info') > -1) {
             const key = items[0].split('_info')[0] 
@@ -82,8 +81,7 @@ Component({
             ...detail,
             openid:app.globalData.userInfo.openid
           }),
-          success: (res) => {
-            console.log(res);
+          success: () => {
             app.globalData.user_basic_info = detail;
             try {
               wx.setStorageSync('user_basic_info', detail)

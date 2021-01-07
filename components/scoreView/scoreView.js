@@ -28,14 +28,19 @@ Component({
    */
   data: {
     score: '0',
-    imageUrl:app.globalData.imageUrl
+    imageUrl: app.globalData.imageUrl
   },
-
+  lifetimes: {
+    attached() {
+      this.setData({
+        openid: app.globalData.userInfo.openid || ''
+      })
+    }
+  },
   properties: {
     openid: {
       type: String,
       observer: function (newVal) {
-
         if (newVal)
           this.getUserGameInfo({
             openid: newVal
@@ -66,6 +71,7 @@ Component({
           url: `${app.globalData.serverUrl}/getUserGameInfo`,
           data: openid,
           success: (result) => {
+            wx.setStorageSync('userGameInfo', result.data)
             resolve(result)
           },
           fail: (err) => {
@@ -87,32 +93,40 @@ Component({
             this.setData({
               score: result.data.score
             })
-            console.log(result);
+            wx.setStorageSync('userGameInfo', result.data)
             proxy.userGameInfo = result.data
           },
           fail: (err) => {
-            console.log(err);
             throw new Error(err);
           },
         })
       } else if (typeof res.data === 'object') { //用户的成绩已经存在
+        proxy.userGameInfo = res.data
         //判断用户登录时间
         const {
           days
         } = interval(parseInt(res.data.game_time), +new Date())
-        if (days > 1) {
-          this.setData({
-            score: 100
+        if (days > 1 && res.data.score === 0) {
+          wx.request({
+            url: `${app.globalData.serverUrl}/setUserGameInfo`,
+            method: 'POST',
+            data: JSON.stringify(openid),
+            success: () => {
+              this.setData({
+                score: 100
+              })
+              proxy.userGameInfo.score = 100
+            },
+            fail: (err) => {
+              throw new Error(err);
+            },
           })
-          proxy.userGameInfo.score = 100
         } else {
           this.setData({
             score: res.data.score
           })
-          console.log(res.data);
-          proxy.userGameInfo = res.data
-          // console.log(getCurrentPages());
         }
+        wx.setStorageSync('userGameInfo', proxy.userGameInfo)
       }
     },
 

@@ -7,6 +7,12 @@
   </view>
 </template>
 
+<template name="label">
+  <view class="{{flex}}">
+    <view class="label">{{lable}}</view>
+  </view>
+</template>
+
 <template name="picker">
   <view class="{{flex}}">
     <view>{{lable}}</view>
@@ -16,11 +22,5 @@
         {{placeholder}}
       </view>
     </picker>
-  </view>
-</template>
-
-<template name="label">
-  <view class="{{flex}}">
-    <view class="label">{{lable}}</view>
   </view>
 </template>

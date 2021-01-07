@@ -4,10 +4,10 @@
   <score-view bind:show="showPay" openid="{{userInfo.openid}}" />
 </view>
 
-<!-- 游戏规则 -->
+<!-- 表单 -->
 <view hidden="{{!show}}"
   class="animate__animated animate__delay-1s {{!show?'':'animate__zoomIn'}} {{!show?'animate__fadeOut':''}}">
-  <level-view modalShow="{{!show}}" title="{{formTitle}}" form="{{form}}"></level-view>
+  <level-view modalShow="{{!show}}" titleShow="{{titleShow}}" title="{{formTitle}}" form="{{form}}"></level-view>
 </view>
 
 <!-- 关卡 -->

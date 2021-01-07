@@ -88,17 +88,20 @@ Page({
 
   getUserInfo: function (e) {
     if (e.detail.userInfo) {
-      if (!wx.getStorageSync('userInfo'))
+      if (!wx.getStorageSync('userInfo')) {
         this.userLoginInfo(e.detail.userInfo)
-        .then(() => {
-          wx.redirectTo({
-            url: '../chooseLevel/chooseLevel'
+          .then(() => {
+            wx.redirectTo({
+              url: '../chooseLevel/chooseLevel'
+            })
           })
+      } else {
+        app.globalData.userInfo = wx.getStorageSync('userInfo')
+        wx.redirectTo({
+          url: '../chooseLevel/chooseLevel'
         })
-      app.globalData.userInfo = wx.getStorageSync('userInfo')
-      wx.redirectTo({
-        url: '../chooseLevel/chooseLevel'
-      })
+      }
+
     }
 
   },
