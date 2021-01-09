@@ -15,17 +15,19 @@ Page({
   data: {
     userInfo: wx.getStorageSync('userInfo') || {},
     imageUrl: app.globalData.imageUrl,
+    score: '',
     show: false,
     levelid: '',
     gameLevelList: gameLevelList,
     formTitle: '玩家基本信息',
     form: userBasicInfoForm,
+    hasAddBtn:false,
     titleShow: false,
     levelForm: [singleForm, singleForm]
   },
   onLoad() {
     try {
-      if (!wx.getStorageSync('user_basic_info'))
+      if (!wx.getStorageSync('userBasicInfo'))
         this.setData({
           show: true,
         })
@@ -40,7 +42,7 @@ Page({
     return proxy.userGameInfo
   },
 
-  // 关卡选择后的回调
+  // 关卡选择后的处理函数
   handleFunc(e) {
     const {
       levelid
@@ -61,14 +63,25 @@ Page({
   showModal: function (levelid) {
     const that = this
     const show = this.data.show
-
-    console.log();
     this.setData({
       show: !show,
       form: that.data.levelForm[levelid],
+      hasAddBtn:true,
       // formTitle: '请填写调剂院校信息',
       levelid
     })
+  },
+  //处理用户积分
+  setUserScore: function (oldScore, extraInfo) {
+    console.log('setUserScore');
+    this.setData({
+      score: oldScore - 20,
+      ...extraInfo
+    })
+    const userGameInfo = wx.getStorageSync('userGameInfo')
+    wx.setStorageSync('userGameInfo', Object.assign(userGameInfo, {
+      score: oldScore - 20,
+    }))
   },
 
   //是否继续闯关
@@ -78,9 +91,17 @@ Page({
       success: ({
         confirm
       }) => {
-        if (confirm)
-          this.showModal(levelid)
-        else
+        if (confirm) {
+          const userGameInfo = wx.getStorageSync('userGameInfo')
+          if (userGameInfo.score >= 20) {
+            this.showModal(levelid)
+          } else {
+            wx.showToast({
+              title: '您的积分不够，请充值或明天再来挑战',
+              icon: 'none'
+            })
+          }
+        } else
           return
       },
       fail: () => {
@@ -94,13 +115,25 @@ Page({
     //判断玩家是否通过本关
     if (!this.data.gameLevelList[levelid].isPassed)
       this.showToast(levelid)
-
-
   },
 
   showPay: function (e) {
     this.setData({
       show: e.detail.show
     })
+  },
+
+  // //表单添加你
+  // addInput:function(){
+
+  // },
+
+  //处理表单组件提交事件
+  formSubmit: function (options) {
+    const {
+      detail
+    } = options
+    this.setUserScore(this.data.userGameInfo.score, detail)
   }
+
 });

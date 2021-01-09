@@ -21,8 +21,9 @@ App({
   globalData: {
     userInfo: null,
     userGameInfo: {},
+    userBasicInfo:{},
     serverUrl: 'http://10.221.197.151:3000',
-    imageUrl:'https://image-1304509895.cos.ap-nanjing.myqcloud.com/',
+    imageUrl:'https://image-1304509895.file.myqcloud.com/',
     logUrl: 'https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code'
   },
 

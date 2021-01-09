@@ -1,4 +1,7 @@
 // components/topLink/pay/pay.js
+const {
+  formVerify
+} = require('../../utils/util')
 const app = getApp()
 
 Component({
@@ -6,18 +9,24 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    titleShow:{
+    titleShow: {
       type: Boolean,
     },
     modalShow: {
       type: Boolean,
     },
+    hasAddBtn: {
+      type: Boolean,
+      value: false
+    },
     title: {
       type: String,
     },
+    levelid:{
+      type:String
+    },
     form: {
       type: Array,
-
     }
   },
 
@@ -38,38 +47,19 @@ Component({
         show: this.properties.modalShow
       })
     },
-    //表单校验
-    formVerify: function (form, rules) {
-      if (rules === undefined)
-        rules = {
-          nickname: /^[\u4E00-\u9FA5A-Za-z]+$/,
-          age: /^\d{2,}$/,
-          adjust_school_info: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
-          adjust_major_info: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
-          undergraduate_school_info: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
-          undergraduate_major_info: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
-          adjust_score: /^[0-9]*$/,
-          undergraduate_rank: /^[0-9]*$/
-        }
-      if (form instanceof Array)
-        return form.every((currentValue) => {
-          if (rules[currentValue[0]].test)
-            return rules[currentValue[0]].test(currentValue[1]) || rules[currentValue[0]].test(parseInt(currentValue[1]))
-          return true
-        })
-    },
+
     //表单提交
     formSubmit: function (e) {
       const detail = e.detail.value
-      if (this.formVerify(Object.entries(detail))) {
+      if (formVerify(Object.entries(detail))) {
+        //对表单特殊字段进行处理
         Object.entries(detail).forEach(items => {
           if (items[0].indexOf('info') > -1) {
-            const key = items[0].split('_info')[0] 
-            const temp =  isNaN(parseInt(items[1])) ? '_name' : '_code'
-            // + isNaN(parseInt(items[1])) ? '_name' : '_code'
+            const key = items[0].split('_info')[0]
+            const temp = isNaN(parseInt(items[1])) ? '_name' : '_code'
             delete detail[items[0]]
             Object.assign(detail, {
-              [key+temp]: items[1]
+              [key + temp]: items[1]
             })
           }
         })
@@ -79,15 +69,15 @@ Component({
           method: 'POST',
           data: JSON.stringify({
             ...detail,
-            openid:app.globalData.userInfo.openid
+            openid: app.globalData.userInfo.openid
           }),
           success: () => {
-            app.globalData.user_basic_info = detail;
+            app.globalData.userBasicInfo = detail;
             try {
-              wx.setStorageSync('user_basic_info', detail)
-              getCurrentPages()[0].setData({
-                user_basic_info: detail,
-                show: this.properties.modalShow
+              wx.setStorageSync('userBasicInfo', detail)
+              this.triggerEvent('formSubmit', {
+                show: this.properties.modalShow,
+                ...detail
               })
             } catch (error) {
               throw new Error(error)
@@ -100,6 +90,17 @@ Component({
           icon: 'none'
         })
       }
+    },
+
+    //添加表单项
+    addinput: function () {
+      console.log(this.data.form);
+      console.log(this.data.levelid);
+      const form = this.data.form;
+      //创建新的表单项
+      const formItem = [{
+        
+      }]
     }
   },
   options: {

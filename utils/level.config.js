@@ -79,12 +79,18 @@ const singleForm = [{
   lable: '调剂院校基本信息',
   template_name: 'label',
   flex: 'flex-column'
-},{
+}, {
   lable: '调剂院校代码或名称',
   template_name: 'input',
   flex: 'flex-column',
-  name: 'undergraduate_school_info',
+  name: 'adjust_school_info',
   placeholder: '建议填写院校代码'
+}, {
+  lable: '调剂专业代码或名称',
+  template_name: 'input',
+  flex: 'flex-column',
+  name: 'adjust_major_info',
+  placeholder: '建议填写专业代码'
 }]
 
 //关卡配置
@@ -112,7 +118,7 @@ const gameLevelList = [{
 ]
 
 module.exports = {
-  userBasicInfo: userBasicInfoForm,
-  gameLevelList: gameLevelList,
-  singleForm: singleForm
+  userBasicInfoForm,
+  gameLevelList,
+  singleForm
 }

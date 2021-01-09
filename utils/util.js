@@ -28,6 +28,7 @@ function toLineObject(obj) {
     })
   );
 }
+
 //计算时间间隔
 function interval(old, now) {
   const stime = Date.parse(new Date(old));
@@ -49,8 +50,30 @@ function interval(old, now) {
   }
 }
 
+//表单校验
+function formVerify(form, rules) {
+  if (!rules)
+    rules = {
+      nickname: /^[\u4E00-\u9FA5A-Za-z]+$/,
+      age: /^\d{2,}$/,
+      adjust_school_info: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
+      adjust_major_info: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
+      undergraduate_school_info: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
+      undergraduate_major_info: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
+      adjust_score: /^[0-9]*$/,
+      undergraduate_rank: /^[0-9]*$/
+    }
+  if (form instanceof Array)
+    return form.every((currentValue) => {
+      if (rules[currentValue[0]].test)
+        return rules[currentValue[0]].test(currentValue[1]) || rules[currentValue[0]].test(parseInt(currentValue[1]))
+      return true
+    })
+}
+
 module.exports = {
-  formatTime: formatTime,
-  toLineObject: toLineObject,
-  interval: interval
+  formVerify,
+  formatTime,
+  toLineObject,
+  interval
 };

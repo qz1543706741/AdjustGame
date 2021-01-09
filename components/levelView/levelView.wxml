@@ -9,6 +9,9 @@
           <block wx:for="{{form}}" wx:key="index">
             <template is="{{item['template_name']}}" data="{{...item}}"></template>
           </block>
+          <button class="add-btn" wx:if="{{hasAddBtn}}" catchtap="addinput">
+            <image src="{{imageUrl+'add.png'}}" mode="aspectFit"  style="height:100%" ></image>
+          </button>
         </view>
         <view class="dialog-submit">
           <button class="submit-btn" form-type="submit">

@@ -1,13 +1,14 @@
 <!-- 分数 -->
-<view 
+<view
   class="animate__animated {{show?'':'animate__backInRight'}} {{show?'':'animate__delay-3s'}} {{show?'animate__fadeOut':''}}">
-  <score-view bind:show="showPay" openid="{{userInfo.openid}}" />
+  <score-view bind:show="showPay" openid="{{userInfo.openid}}" score="{{score}}" />
 </view>
 
 <!-- 表单 -->
 <view hidden="{{!show}}"
   class="animate__animated animate__delay-1s {{!show?'':'animate__zoomIn'}} {{!show?'animate__fadeOut':''}}">
-  <level-view modalShow="{{!show}}" titleShow="{{titleShow}}" title="{{formTitle}}" form="{{form}}"></level-view>
+  <level-view modalShow="{{!show}}" titleShow="{{titleShow}}" title="{{formTitle}}" form="{{form}}"
+    bind:formSubmit="formSubmit" hasAddBtn="{{hasAddBtn}}" levelid="{{levelid}}"></level-view>
 </view>
 
 <!-- 关卡 -->
