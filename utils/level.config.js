@@ -76,22 +76,31 @@ const userBasicInfoForm = [{
 
 //单人闯关信息填报表单
 const singleForm = [{
-  lable: '调剂院校基本信息',
-  template_name: 'label',
-  flex: 'flex-column'
-}, {
-  lable: '调剂院校代码或名称',
-  template_name: 'input',
-  flex: 'flex-column',
-  name: 'adjust_school_info',
-  placeholder: '建议填写院校代码'
-}, {
-  lable: '调剂专业代码或名称',
-  template_name: 'input',
-  flex: 'flex-column',
-  name: 'adjust_major_info',
-  placeholder: '建议填写专业代码'
+  flex: 'adjust-form',
+  template_name: 'variable_form',
+  has_add_btn: true,
+  add_btn_url: getApp().globalData.imageUrl + 'add.png',
+  form_item: [{
+    name:'adjust_info',
+    template_name: 'input_group',
+    flex: 'input-group',
+    lable: '调剂志愿',
+    group_name: 'adjust_single',
+    group_index: 1,
+    group_items: [{
+      lable: '调剂院校代码或名称',
+      name: 'adjust_school_info',
+      placeholder: '建议填写院校代码'
+    }, {
+      lable: '调剂专业代码或名称',
+      name: 'adjust_major_info',
+      placeholder: '建议填写专业代码'
+    }]
+  }]
 }]
+
+
+
 
 //关卡配置
 const gameLevelList = [{

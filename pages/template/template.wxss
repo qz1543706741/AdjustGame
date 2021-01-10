@@ -31,7 +31,7 @@
   padding-left: 10rpx;
 }
 
-.flex-column .picker-item{
+.flex-column .picker-item {
   display: flex;
   width: 100%;
   margin-top: 5px;
@@ -40,12 +40,71 @@
   font-size: 14px;
 }
 
-.flex-column .label{
+.flex-column .label {
   display: flex;
   justify-content: center;
   width: 100%;
   font-size: 16px;
   font-weight: bold;
   padding-bottom: 15px;
-  border-bottom: 1px solid #b9b9b9 ;
+  border-bottom: 1px solid #b9b9b9;
+}
+
+.adjust-form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  height: 85%;
+  overflow: scroll;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 5px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.input-group .label {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #b9b9b9;
+}
+
+.input-group .input-item {
+  margin-top: 5px;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 5px;
+  width: 95%;
+  font-size: 24rpx;
+  padding-left: 10rpx;
+}
+
+.add-btn {
+  display: flex;
+  width: 100%;
+  height: 8%;
+  justify-content: center;
+  margin-top: 10px;
+}
+button{
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+button::after {
+  border: none;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
 }

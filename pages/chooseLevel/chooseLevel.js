@@ -17,11 +17,10 @@ Page({
     imageUrl: app.globalData.imageUrl,
     score: '',
     show: false,
-    levelid: '',
+    levelid: null,
     gameLevelList: gameLevelList,
     formTitle: '玩家基本信息',
     form: userBasicInfoForm,
-    hasAddBtn:false,
     titleShow: false,
     levelForm: [singleForm, singleForm]
   },
@@ -66,14 +65,15 @@ Page({
     this.setData({
       show: !show,
       form: that.data.levelForm[levelid],
-      hasAddBtn:true,
-      // formTitle: '请填写调剂院校信息',
+      formTitle: levelid ? '调剂院校基本信息' : '',
+      titleShow: levelid ? '调剂院校基本信息' : '',
       levelid
     })
   },
   //处理用户积分
   setUserScore: function (oldScore, extraInfo) {
     console.log('setUserScore');
+    console.log(oldScore);
     this.setData({
       score: oldScore - 20,
       ...extraInfo
@@ -133,7 +133,9 @@ Page({
     const {
       detail
     } = options
-    this.setUserScore(this.data.userGameInfo.score, detail)
+    console.log(detail);
+    
+    this.setUserScore(wx.getStorageSync('userGameInfo').score, detail)
   }
 
 });

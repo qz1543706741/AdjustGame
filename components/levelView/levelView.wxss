@@ -64,19 +64,6 @@ page {
   align-items: center;
   bottom: 0;
 }
-.add-btn{
-  display: flex;
-  position: relative;
-  height: 8%;
-  width: 100%;
-  justify-content: center;
-  background-color: transparent !important;
-  border-color: transparent  !important;
-  margin-top: 10px;
-}
-.add-btn::after {
-  border: none; 
-}
 
 .submit-btn{
   position: relative;

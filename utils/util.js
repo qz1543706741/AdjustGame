@@ -58,10 +58,18 @@ function formVerify(form, rules) {
       age: /^\d{2,}$/,
       adjust_school_info: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
       adjust_major_info: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
+      adjust_school_info_01: /^[\u4e00-\u9fa5]{1,}$|^[0-9]+$/,
+      adjust_major_info_01: /^[\u4e00-\u9fa5]{1,}$|^[0-9]+$/,
+      adjust_school_info_02: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
+      adjust_major_info_02: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
+      adjust_school_info_03: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
+      adjust_major_info_03: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
+      adjust_school_info_04: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
+      adjust_major_info_04: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
       undergraduate_school_info: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
       undergraduate_major_info: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
       adjust_score: /^[0-9]*$/,
-      undergraduate_rank: /^[0-9]*$/
+      undergraduate_rank: /^[0-9]*$/,
     }
   if (form instanceof Array)
     return form.every((currentValue) => {
