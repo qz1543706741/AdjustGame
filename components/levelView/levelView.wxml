@@ -3,11 +3,12 @@
 <view class="dialog">
   <view class="dialog-bg">
     <view class="dialog-form">
-      <view class="dialog-title" wx:if="{{titleShow}}" >{{title}}</view>
+      <view class="dialog-title" wx:if="{{titleShow}}">{{title}}</view>
       <form bindsubmit="formSubmit" catchreset="formReset">
         <view style="overflow-y:scroll;height:90%;width:100%;margin-top:15px">
           <block wx:for="{{form}}" wx:key="index">
-            <template is="{{item['template_name']}}" data="{{...item}}"></template>
+            <template is="{{item['template_name']}}"
+              data="{{inputValue:inputValue,schoolCode:schoolCode,...item}}"></template>
           </block>
         </view>
         <view class="dialog-submit">

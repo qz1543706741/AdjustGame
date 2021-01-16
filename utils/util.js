@@ -79,9 +79,18 @@ function formVerify(form, rules) {
     })
 }
 
+//防抖函数
+function debounce(callback, timer, waitTime = 500) {
+  if (timer) clearTimeout(timer)
+  return setTimeout(() => {
+    callback()
+  }, waitTime);
+}
+
 module.exports = {
   formVerify,
   formatTime,
   toLineObject,
-  interval
+  interval,
+  debounce
 };

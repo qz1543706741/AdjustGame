@@ -1,9 +1,11 @@
 // components/topLink/pay/pay.js
 const {
-  formVerify
+  formVerify,
+  debounce
 } = require('../../utils/util')
 const app = getApp()
-
+//防抖timer
+let timer = null
 Component({
   /**
    * 组件的属性列表
@@ -30,7 +32,9 @@ Component({
    * 组件的初始数据
    */
   data: {
-    imageUrl: getApp().globalData.imageUrl
+    imageUrl: getApp().globalData.imageUrl,
+    inputValue: '',
+    schoolCode: ''
   },
 
   /**
@@ -134,7 +138,45 @@ Component({
           icon: 'none'
         })
       }
+    },
+
+    //输入
+    inputHandeler: function (e) {
+      //防抖
+      timer = debounce(this.inputDataOperate.bind(this, e), timer)
+    },
+
+    //对输入框信息进行处理
+    inputDataOperate: function (e) {
+      const {
+        value
+      } = e.detail
+      const {
+        name
+      } = e.currentTarget.dataset
+      if (isNaN(value)) return
+      if (name === 'adjust_school_info')
+        this.getSchoolName(value)
+      if (name === 'adjust_school_info')
+        this.getMajorName(value)
+    },
+
+    //根据院校代码查询院校名称
+    getSchoolName: function (value) {
+      if (app.globalData.schoolInfo[value])
+        this.setData({
+          inputValue: app.globalData.schoolInfo[value],
+          schoolCode: value
+        })
+    },
+
+    //根据专业代码查询专业名称
+    getMajorName: function () {
+      // wx.request({
+      //   url: 'url',
+      // })
     }
+
   },
   options: {
     multipleSlots: true
