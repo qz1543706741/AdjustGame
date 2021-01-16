@@ -5,7 +5,7 @@ const {
   userBasicInfoForm,
   singleForm,
   gameLevelList
-} = require('../../utils/level.config')
+} = require('../../components/levelView/level.config')
 
 Page({
 
@@ -137,5 +137,6 @@ Page({
     
     this.setUserScore(wx.getStorageSync('userGameInfo').score, detail)
   }
+
 
 });

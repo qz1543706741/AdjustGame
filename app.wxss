@@ -3,7 +3,7 @@
 
 page{
   height: 100%;
-  background-image: url('http://ql9zbqtpm.hn-bkt.clouddn.com/bg1.png');
+  background-image: url('https://image-1304509895.file.myqcloud.com/bg1.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   overflow-y: hidden;

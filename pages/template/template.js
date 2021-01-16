@@ -1,4 +1,8 @@
 // pages/template/template.js
+const {
+  globalData
+} = getApp()
+
 Page({
 
   /**
@@ -6,10 +10,5 @@ Page({
    */
   data: {
     imageUrl: getApp().globalData.imageUrl
-  },
-
-  onLoad(){
-    console.log(this.data.imageUrl);
   }
-
 })

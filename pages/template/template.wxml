@@ -3,7 +3,8 @@
   <view class="{{flex}}">
     <view>{{lable}}</view>
     <input class="input-item" placeholder="{{placeholder || ''}}" name="{{name}}" type="{{rules.type || text}}"
-      maxlength="{{rules.maxlength || 255}}" />
+      maxlength="{{rules.maxlength || 255}}" bindinput="inputHandeler" data-name="{{name}}"
+      value="{{inputValueKey?inputValue[inputValueKey]:''}}" />
   </view>
 </template>
 
