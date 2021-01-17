@@ -82,10 +82,11 @@ function formVerify(form, rules) {
 //防抖函数
 function debounce(callback, timer, waitTime = 500) {
   if (timer) clearTimeout(timer)
-  return timer = setTimeout(() => {
+  return setTimeout(() => {
     callback()
   }, waitTime);
 }
+
 
 module.exports = {
   formVerify,

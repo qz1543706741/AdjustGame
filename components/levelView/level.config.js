@@ -56,7 +56,8 @@ const userBasicInfoForm = [{
   template_name: 'input',
   flex: 'flex-column',
   name: 'undergraduate_school_info',
-  placeholder: '建议填写院校代码'
+  placeholder: '建议填写院校代码',
+  inputValueKey:'school_name'
 }, {
   lable: '本科专业代码或名称',
   template_name: 'input',

@@ -33,7 +33,7 @@ Component({
    */
   data: {
     imageUrl: getApp().globalData.imageUrl,
-    inputValue: ''
+    inputValue: {}
   },
 
   /**
@@ -141,44 +141,56 @@ Component({
 
     //输入
     inputHandeler: function (e) {
-      debounce(this.inputDataOperate.bind(this,e),timer)
-      //console.log(111);
       //防抖
-      // if (timer) clearTimeout(timer)
-      // timer = setTimeout(() => {
-      //   this.inputDataOperate(e)
-      // }, 500);
+      timer = debounce(this.inputDataOperate.bind(this, e), timer)
     },
 
     //对输入框信息进行处理
     inputDataOperate: function (e) {
-      console.log(e);
-      // const {
-      //   value
-      // } = e.detail
-      // const {
-      //   name
-      // } = e.currentTarget.dataset
-      // if (isNaN(value)) return
-      // if (name === 'adjust_school_info')
-      //   this.getSchoolName(value)
-      // if (name === 'adjust_school_info')
-      //   this.getMajorName(value)
+      const {
+        value
+      } = e.detail
+      const {
+        name
+      } = e.currentTarget.dataset
+      if (isNaN(value)) return
+      if (name === 'adjust_school_info' || name === 'undergraduate_school_info')
+        this.getSchoolName(name, value)
+      if (name === 'adjust_major_info')
+        this.getMajorName(name, value)
     },
 
     //根据院校代码查询院校名称
-    getSchoolName: function (value) {
-      if (app.globalData.schoolInfo[value])
-        this.setData({
-          inputValue: app.globalData.schoolInfo[value],
+    getSchoolName: function (name, value) {
+      if (app.globalData.schoolInfo[value]) {
+        const inputValue = this.data.inputValue
+        Object.assign(inputValue, {
+          [name]: {
+            schoolName: app.globalData.schoolInfo[value].school_name,
+            schoolCode: value
+          }
         })
+        this.setData({
+          inputValue,
+        })
+      }
     },
 
     //根据专业代码查询专业名称
-    getMajorName: function () {
-      // wx.request({
-      //   url: 'url',
-      // })
+    getMajorName: function (name, value) {
+      //console.log(this.data.inputValue);
+      //const that = this
+      wx.request({
+        url: `${app.globalData.serverUrl}/getSchoolMajorInfo`,
+        method: 'GET',
+        data: {
+          'major_code': value,
+          // 'school_code': this.data.inputValue['adjust_school_info'] ? this.data.inputValue['adjust_school_info'].schoolCode : ''
+        },
+        success: (res) => {
+          console.log(res);
+        }
+      })
     }
 
   },
