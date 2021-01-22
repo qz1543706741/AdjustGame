@@ -51,3 +51,9 @@
     </view>
   </view>
 </template>
+
+<template name="basic_select">
+  <view>
+    <select-view></select-view>
+  </view>
+</template>

@@ -32,7 +32,7 @@ const userBasicInfoForm = [{
   inputValueKey:'school_name'
 }, {
   lable: '考研所报专业代码或名称',
-  template_name: 'input',
+  template_name: 'basic_select',
   flex: 'flex-column',
   name: 'adjust_major_info',
   placeholder: '建议填写专业代码'
