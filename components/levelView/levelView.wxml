@@ -7,7 +7,7 @@
       <form bindsubmit="formSubmit" catchreset="formReset">
         <view style="overflow-y:scroll;height:90%;width:100%;margin-top:15px">
           <block wx:for="{{form}}" wx:key="index">
-            <template is="{{item['template_name']}}" data="{{inputValue:inputValue,...item}}"></template>
+            <template is="{{item['template_name']}}" data="{{inputValue,majorOptions,...item}}"></template>
           </block>
         </view>
         <view class="dialog-submit">

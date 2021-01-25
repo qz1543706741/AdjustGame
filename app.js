@@ -1,6 +1,11 @@
 // app.js
 App({
   onLaunch: function () {
+    // wx.getSystemInfo({
+    //   success(res){
+    //     console.log(res);
+    //   }
+    // })
     wx.request({
       url: `${this.globalData.jsonUrl}school.json`,
       success:(res)=>{

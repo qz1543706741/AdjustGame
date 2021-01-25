@@ -10,6 +10,7 @@ Component({
   /**
    * 组件的属性列表
    */
+  behaviors: [],
   properties: {
     titleShow: {
       type: Boolean,
@@ -33,7 +34,8 @@ Component({
    */
   data: {
     imageUrl: getApp().globalData.imageUrl,
-    inputValue: {}
+    inputValue: {},
+    majorOptions: {}
   },
 
   /**
@@ -52,19 +54,30 @@ Component({
       const detail = e.detail.value
       if (formVerify(Object.entries(detail))) {
         //对表单特殊字段进行处理
-        Object.entries(detail).forEach(items => {
-          if (items[0].indexOf('info') > -1) {
-            const keyArray = items[0].split('_info')
-            const key = keyArray[0]
-            const temp = isNaN(parseInt(items[1])) ? '_name' : '_code'
-            keyArray.shift()
-            delete detail[items[0]]
-            Object.assign(detail, {
-              [key + temp + keyArray.toString()]: items[1]
-            })
+        // Object.entries(detail).forEach(items => {
+        //   if (items[0].indexOf('info') > -1) {
+        //     const keyArray = items[0].split('_info')
+        //     const key = keyArray[0]
+        //     const temp = isNaN(parseInt(items[1])) ? '_name' : '_code'
+        //     keyArray.shift()
+        //     delete detail[items[0]]
+        //     Object.assign(detail, {
+        //       [key + temp + keyArray.toString()]: items[1]
+        //     })
+        //   }
+        // })
+
+        //对表单数据进行处理
+        Object.keys(detail).forEach(key => {
+          if (key.indexOf('school') > -1){
+            const temparr = detail[key].split(/[\(\)\s)]/).filter(item=>item!=='')
+            detail[key] = {
+              key:temparr[0],
+              value:temparr[1]
+            }
           }
         })
-        console.log(detail);
+        
         if (this.data.levelid)
           wx.request({
             url: `${app.globalData.serverUrl}/setUserAdjustInfo`,
@@ -116,29 +129,6 @@ Component({
       }
     },
 
-    //添加表单项
-    addinput: function () {
-      const form = this.data.form[0];
-      const group_index = form.form_item.length
-      if (group_index < 4) {
-        //创建一个新的item
-        const temp = Object.assign({}, form.form_item[0], {
-          group_index: group_index + 1
-        })
-
-        //新的item添加进入form
-        form.form_item.push(temp)
-        this.setData({
-          form: [form]
-        })
-      } else {
-        wx.showToast({
-          title: '最多可添加四个调剂志愿',
-          icon: 'none'
-        })
-      }
-    },
-
     //输入
     inputHandeler: function (e) {
       //防抖
@@ -156,42 +146,57 @@ Component({
       if (isNaN(value)) return
       if (name === 'adjust_school_info' || name === 'undergraduate_school_info')
         this.getSchoolName(name, value)
-      if (name === 'adjust_major_info')
-        this.getMajorName(name, value)
     },
 
     //根据院校代码查询院校名称
-    getSchoolName: function (name, value) {
+    getSchoolName: async function (name, value) {
       if (app.globalData.schoolInfo[value]) {
         const inputValue = this.data.inputValue
+        const majorOptions = this.data.majorOptions
+        const majorResult = await this.getMajorName(value)
         Object.assign(inputValue, {
           [name]: {
             schoolName: app.globalData.schoolInfo[value].school_name,
-            schoolCode: value
+            schoolCode: value,
           }
+        })
+        Object.assign(majorOptions, {
+          [name.replace(/school/, 'major')]: majorResult
         })
         this.setData({
           inputValue,
+          majorOptions
         })
       }
     },
 
-    //根据专业代码查询专业名称
-    getMajorName: function (name, value) {
-      //console.log(this.data.inputValue);
-      //const that = this
-      wx.request({
-        url: `${app.globalData.serverUrl}/getSchoolMajorInfo`,
-        method: 'GET',
-        data: {
-          'major_code': value,
-          // 'school_code': this.data.inputValue['adjust_school_info'] ? this.data.inputValue['adjust_school_info'].schoolCode : ''
-        },
-        success: (res) => {
-          console.log(res);
-        }
+    //获取专业列表
+    getMajorName: function (schoolCode) {
+      return new Promise((resolve, reject) => {
+        wx.request({
+          url: `${app.globalData.serverUrl}/getSchoolMajorInfo`,
+          method: 'GET',
+          data: {
+            schoolCode,
+          },
+          success: (res) => {
+            resolve(res.data instanceof Array ? res.data.map(item => {
+              const {
+                major_code,
+                major_name,
+              } = item
+              return {
+                major_code,
+                major_name
+              }
+            }) : [])
+          },
+          fail: err => {
+            reject(err)
+          }
+        })
       })
-    }
+    },
 
   },
   options: {

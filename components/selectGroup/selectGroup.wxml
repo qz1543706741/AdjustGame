@@ -1,0 +1,11 @@
+<import src="../../pages/template/template.wxml"></import>
+<view class="{{flex}}">
+  <block wx:for="{{form_item}}" wx:key="group_index">
+    <template is="{{item.template_name}}" data="{{...item}}"></template>
+  </block>
+  <view class="add-btn">
+    <button wx:if="{{has_add_btn}}" catchtap="addinput">
+      <image src="{{add_btn_url}}" mode="heightFix" style="height:100%"></image>
+    </button>
+  </view>
+</view>

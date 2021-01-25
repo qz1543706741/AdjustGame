@@ -1,15 +1,8 @@
 module.exports = Behavior({
-  behaviors: [],
   properties: {
-    myBehaviorProperty: {
-      type: String
+    majorOtions: {
+      type: Array,
     }
   },
-  data: {
-    userInfo: {},
-  },
-  attached: function () {},
-  methods: {
-    myBehaviorMethod: function () {}
-  }
+
 })

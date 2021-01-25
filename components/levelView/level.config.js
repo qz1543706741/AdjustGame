@@ -29,10 +29,11 @@ const userBasicInfoForm = [{
   flex: 'flex-column',
   name: 'adjust_school_info',
   placeholder: '建议填写院校代码',
-  inputValueKey:'school_name'
+  inputValueKey: 'school_name'
 }, {
   lable: '考研所报专业代码或名称',
   template_name: 'basic_select',
+  options_keys: ['major_code', 'major_name'],
   flex: 'flex-column',
   name: 'adjust_major_info',
   placeholder: '建议填写专业代码'
@@ -57,10 +58,11 @@ const userBasicInfoForm = [{
   flex: 'flex-column',
   name: 'undergraduate_school_info',
   placeholder: '建议填写院校代码',
-  inputValueKey:'school_name'
+  inputValueKey: 'school_name'
 }, {
   lable: '本科专业代码或名称',
-  template_name: 'input',
+  template_name: 'basic_select',
+  options_keys: ['major_code', 'major_name'],
   flex: 'flex-column',
   name: 'undergraduate_major_info',
   placeholder: '建议填写专业代码'
@@ -83,8 +85,8 @@ const singleForm = [{
   has_add_btn: true,
   add_btn_url: getApp().globalData.imageUrl + 'add.png',
   form_item: [{
-    name:'adjust_info',
-    template_name: 'input_group',
+    name: 'adjust_info',
+    template_name: 'adjust_group',
     flex: 'input-group',
     lable: '调剂志愿',
     group_name: 'adjust_single',
@@ -92,16 +94,17 @@ const singleForm = [{
     group_items: [{
       lable: '调剂院校代码或名称',
       name: 'adjust_school_info',
-      placeholder: '建议填写院校代码'
+      placeholder: '建议填写院校代码',
+      template_name: 'input',
+      widthFullScreen:true
     }, {
       lable: '调剂专业代码或名称',
       name: 'adjust_major_info',
-      placeholder: '建议填写专业代码'
+      placeholder: '建议填写专业代码',
+      template_name: 'basic_select'
     }]
   }]
 }]
-
-
 
 
 //关卡配置

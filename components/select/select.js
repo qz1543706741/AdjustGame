@@ -1,27 +1,29 @@
 Component({
+  behaviors: ['wx://form-field'], //内置behaviors，使自定义组件有类似于表单控件的行为。
   properties: {
     options: {
       type: Array,
-      value: []
+      value: [],
+    },
+    optionsKeys: {
+      type: Array,
     },
     defaultOption: {
       type: Object,
       value: {
-        id: '000',
-        name: '全部城市'
+        key: '000',
+        value: '请先填写校代码'
       }
     },
-    key: {
-      type: String,
-      value: 'id'
+    name: {
+      type: String
     },
-    text: {
-      type: String,
-      value: 'name'
+    value: {
+      type: Object
     }
+
   },
   data: {
-    result: [],
     isShow: false,
     current: {}
   },
@@ -30,11 +32,9 @@ Component({
       let dataset = e.target.dataset
       this.setData({
         current: dataset,
-        isShow: false
+        isShow: false,
+        value: dataset
       });
-
-      // 调用父组件方法，并传参
-      this.triggerEvent("change", { ...dataset })
     },
     openClose() {
       this.setData({
@@ -51,17 +51,8 @@ Component({
   },
   lifetimes: {
     attached() {
-      // 属性名称转换, 如果不是 { id: '', name:'' } 格式，则转为 { id: '', name:'' } 格式
-      let result = []
-      if (this.data.key !== 'id' || this.data.text !== 'name') {       
-        for (let item of this.data.options) {
-          let { [this.data.key]: id, [this.data.text]: name } = item
-          result.push({ id, name })
-        }
-      }
       this.setData({
         current: Object.assign({}, this.data.defaultOption),
-        result: result
       })
     }
   }
