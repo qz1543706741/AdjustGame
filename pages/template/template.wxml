@@ -53,7 +53,13 @@
 </template>
 
 <template name="basic_select">
-  <view>
-    <select-view></select-view>
+  <view class="{{flex}}" style="width:100%">
+    <view>{{lable}}</view>
+    <view style="width:100%">
+      <select-view options="{{majorOptions[name]}}" optionsKeys="{{options_keys}}" bind:change="selectChange"
+        name="{{name}}">
+      </select-view>
+    </view>
+
   </view>
 </template>

@@ -56,8 +56,8 @@ function formVerify(form, rules) {
     rules = {
       nickname: /^[\u4E00-\u9FA5A-Za-z]+$/,
       age: /^\d{2,}$/,
-      adjust_school_info: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
-      adjust_major_info: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
+      // adjust_school_info: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
+      // adjust_major_info: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
       adjust_school_info_01: /^[\u4e00-\u9fa5]{1,}$|^[0-9]+$/,
       adjust_major_info_01: /^[\u4e00-\u9fa5]{1,}$|^[0-9]+$/,
       adjust_school_info_02: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
@@ -66,14 +66,14 @@ function formVerify(form, rules) {
       adjust_major_info_03: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
       adjust_school_info_04: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
       adjust_major_info_04: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
-      undergraduate_school_info: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
-      undergraduate_major_info: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
+      // undergraduate_school_info: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
+      // undergraduate_major_info: /^[\u4e00-\u9fa5]{0,}$|^[0-9]*$/,
       adjust_score: /^[0-9]*$/,
       undergraduate_rank: /^[0-9]*$/,
     }
   if (form instanceof Array)
     return form.every((currentValue) => {
-      if (rules[currentValue[0]].test)
+      if (rules[currentValue[0]])
         return rules[currentValue[0]].test(currentValue[1]) || rules[currentValue[0]].test(parseInt(currentValue[1]))
       return true
     })
@@ -87,11 +87,16 @@ function debounce(callback, timer, waitTime = 500) {
   }, waitTime);
 }
 
+function deepclone(obj){
+  return JSON.parse(JSON.stringify(obj))
+}
+
 
 module.exports = {
   formVerify,
   formatTime,
   toLineObject,
   interval,
-  debounce
+  debounce,
+  deepclone
 };

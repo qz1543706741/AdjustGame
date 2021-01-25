@@ -1,6 +1,8 @@
 {
   "component": true,
-  "usingComponents": {},
+  "usingComponents": {
+    "select-view":"/components/select/select"
+  },
   "componentGenerics": {
     "selectable": true
   }
