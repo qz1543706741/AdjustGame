@@ -1,10 +1,21 @@
 <import src="../../pages/template/template.wxml"></import>
-<view class="{{flex}}">
+<view class="flex-column">
   <block wx:for="{{form_item}}" wx:key="group_index">
-    <template is="{{item.template_name}}" data="{{...item}}"></template>
+    <view
+      class="group animate__animated {{form_item.length===1?'animate__delay-half2s':''}} animate__faster animate__slideInDown">
+      <view class="label">{{item.lable+item.group_index}}</view>
+      <input class="input-item" type="text"
+        placeholder-class="animate__animated {{form_item.length===1?'animate__delay-half2s':''}} animate__fadeIn"
+        placeholder="{{item.placeholder}}" value="{{item.showText}}" bindinput="inputHandeler" data-index="{{index}}" />
+      <view style="width:98%;margin-top:5px"
+        class="{{item.showText!==''?'animate__animated animate__delay-1s animate__faster animate__slideInDown':''}}">
+        <select-view options="{{item.majorOptions}}" bind:showAddBtn="showAddBtn"></select-view>
+      </view>
+    </view>
   </block>
-  <view class="add-btn">
-    <button wx:if="{{has_add_btn}}" catchtap="addinput">
+  <view
+    class="add-btn animate__animated {{form_item.length===1?'animate__delay-half2s animate__faster animate__fadeIn':''}} {{animate__slideInDown}}">
+    <button hidden="{{!has_add_btn}}" catchtap="addinput">
       <image src="{{add_btn_url}}" mode="heightFix" style="height:100%"></image>
     </button>
   </view>

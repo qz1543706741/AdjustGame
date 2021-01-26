@@ -4,5 +4,4 @@ module.exports = Behavior({
       type: Array,
     }
   },
-
 })

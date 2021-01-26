@@ -1,2 +1,36 @@
 /* components/selectGroup/selectGroup.wxss */
-@import '../../pages/template/template.wxss'
+@import '../../pages/template/template.wxss';
+
+.flex-column .group {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  border-radius: 5px;
+  border: 1px solid rgb(221, 221, 221);
+  padding: 5px 5px;
+  box-shadow: 2px 1px 10px 1px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  background-color: rgb(255, 255, 255, 0.2);
+}
+
+.flex-column .group .label {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  padding-bottom: 15px;
+}
+
+.school-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-btn {
+  display: flex;
+  width: 100%;
+  height: 70%;
+  justify-content: center;
+  margin-top: 10px;
+}

@@ -1,9 +1,12 @@
 <!--pages/template/template.wxml-->
 <template name="input">
-  <view class="{{flex}}" style="width:{{widthFullScreen?'100%':''}}">
+  <view class="{{flex}} animate__animated animate__delay-1s animate__backInLeft"
+    style="width:{{widthFullScreen?'100%':''}}">
     <view>{{lable}}</view>
-    <input class="input-item" placeholder="{{placeholder || ''}}" name="{{name}}" type="{{rules.type || text}}"
+    <input class="input-item" placeholder-class="animate__animated animate__delay-2s animate__fadeIn"
+      placeholder="{{placeholder || ''}}" name="{{name}}" type="{{rules.type || text}}"
       maxlength="{{rules.maxlength || 255}}" bindinput="inputHandeler" data-name="{{name}}"
+      data-group_index="{{group_index}}"
       value="{{inputValueKey?inputValue[name]?'('+inputValue[name].schoolCode+') '+inputValue[name].schoolName:'':''}}" />
   </view>
 </template>
@@ -31,7 +34,7 @@
     <view class="label">{{lable+(group_index)}}</view>
     <block wx:for="{{group_items}}" wx:key="index">
       <view class="input-group">
-        <template is="{{item.template_name}}" data="{{...item}}"></template>
+        <template is="{{item.template_name}}" data="{{group_index:group_index,...item}}"></template>
       </view>
     </block>
   </view>
@@ -47,8 +50,8 @@
   <view class="{{flex}}" style="width:100%">
     <view>{{lable}}</view>
     <view style="width:100%">
-      <select-view options="{{majorOptions[name]}}" optionsKeys="{{options_keys}}" bind:change="selectChange"
-        name="{{name}}">
+      <select-view options="{{majorOptions[name]||majorOptions}}" optionsKeys="{{options_keys}}"
+        bind:change="selectChange" name="{{name}}">
       </select-view>
     </view>
   </view>

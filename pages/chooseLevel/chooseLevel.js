@@ -37,7 +37,6 @@ Page({
 
   // 校验玩家是否通过关卡
   isPassedLevel(levelid) {
-
     return proxy.userGameInfo
   },
 
@@ -72,8 +71,6 @@ Page({
   },
   //处理用户积分
   setUserScore: function (oldScore, extraInfo) {
-    console.log('setUserScore');
-    console.log(oldScore);
     this.setData({
       score: oldScore - 20,
       ...extraInfo
@@ -133,7 +130,6 @@ Page({
     const {
       detail
     } = options
-    console.log(detail);
     
     this.setUserScore(wx.getStorageSync('userGameInfo').score, detail)
   }

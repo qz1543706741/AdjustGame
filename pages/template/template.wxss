@@ -1,3 +1,5 @@
+@import '../../utils/animate.wxss';
+
 .flex-column {
   display: flex;
   flex-direction: column;
@@ -40,7 +42,7 @@
   font-size: 14px;
 }
 
-.flex-column .label {
+.flex-column > .label {
   display: flex;
   justify-content: center;
   width: 100%;
@@ -79,21 +81,16 @@
 }
 
 .input-group .input-item {
-  margin-top: 5px;
+  /* margin-top: 5px; */
   border: 1px solid rgb(221, 221, 221);
   border-radius: 5px;
+  min-width: 95%;
   width: 95%;
-  font-size: 24rpx;
+  font-size: 12px;
   padding-left: 10rpx;
 }
 
-.add-btn {
-  display: flex;
-  width: 100%;
-  height: 8%;
-  justify-content: center;
-  margin-top: 10px;
-}
+
 button{
   background-color: transparent !important;
   border-color: transparent !important;

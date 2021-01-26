@@ -91,18 +91,24 @@ const singleForm = [{
     lable: '调剂志愿',
     group_name: 'adjust_single',
     group_index: 1,
-    group_items: [{
-      lable: '调剂院校代码或名称',
-      name: 'adjust_school_info',
-      placeholder: '建议填写院校代码',
-      template_name: 'input',
-      widthFullScreen:true
-    }, {
-      lable: '调剂专业代码或名称',
-      name: 'adjust_major_info',
-      placeholder: '建议填写专业代码',
-      template_name: 'basic_select'
-    }]
+    placeholder: '请填写院校代码',
+    showText:'',
+    schoolCode:'',
+    schoolName:'',
+    majorOptions:[]
+    // group_items: [{
+    //   lable: '调剂院校代码或名称',
+    //   name: 'adjust_school_info',
+    //   placeholder: '建议填写院校代码',
+    //   template_name: 'input',
+    //   widthFullScreen:true
+    // }, {
+    //   lable: '调剂专业代码或名称',
+    //   name: 'adjust_major_info',
+    //   placeholder: '建议填写专业代码',
+    //   template_name: 'basic_select',
+    //   majorOptions:[]
+    // }]
   }]
 }]
 

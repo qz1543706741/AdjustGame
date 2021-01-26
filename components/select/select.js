@@ -37,8 +37,9 @@ Component({
       });
     },
     openClose() {
+      this.triggerEvent('showAddBtn')
       this.setData({
-        isShow: !this.data.isShow
+        isShow: !this.data.isShow,
       })
     },
 

@@ -1,3 +1,4 @@
+@import '../../utils/animate.wxss';
 
 .select-box {
   position: relative;
@@ -44,15 +45,19 @@
   border-top: 0;
   border-radius:0 6rpx 6rpx 6rpx;
   box-sizing: border-box;
-  z-index: 99;
+  z-index: 999;
   box-shadow: 0rpx 0rpx 1rpx 1rpx rgba(0, 0, 0, 0.2) inset;
-  background-color: #f4f6e5;
-  height: 300px;
+  /* height: 0px; */
   overflow-y: scroll;
+  transition: height 0.5s;
+  -webkit-transition: height 0.5s;
+  background-color: rgb(247, 241, 241);
 }
 
 .option {
-  display: block;
+  display: flex;
+  flex-direction: row;
+  flex-flow: row;
   width: 100%;
   line-height: 50rpx;
   border-bottom: 1rpx solid #eee;
