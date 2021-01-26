@@ -1,6 +1,6 @@
 <!--pages/template/template.wxml-->
 <template name="input">
-  <view class="{{flex}}">
+  <view class="{{flex}}" style="width:{{widthFullScreen?'100%':''}}">
     <view>{{lable}}</view>
     <input class="input-item" placeholder="{{placeholder || ''}}" name="{{name}}" type="{{rules.type || text}}"
       maxlength="{{rules.maxlength || 255}}" bindinput="inputHandeler" data-name="{{name}}"
@@ -26,29 +26,20 @@
   </view>
 </template>
 
-<template name="input_group">
+<template name="adjust_group">
   <view class="{{flex}}" style="width:100%" name="{{group_name}}">
     <view class="label">{{lable+(group_index)}}</view>
     <block wx:for="{{group_items}}" wx:key="index">
       <view class="input-group">
-        <view>{{item.lable}}</view>
-        <input class="input-item" placeholder="{{item.placeholder || ''}}" name="{{item.name+'_0'+group_index}}"
-          type="{{item.rules.type || text}}" maxlength="{{item.rules.maxlength || 255}}" />
+        <template is="{{item.template_name}}" data="{{...item}}"></template>
       </view>
     </block>
   </view>
 </template>
 
 <template name="variable_form">
-  <view class="{{flex}}">
-    <block wx:for="{{form_item}}" wx:key="index">
-      <template is="{{item.template_name}}" data="{{...item}}"></template>
-    </block>
-    <view class="add-btn">
-      <button wx:if="{{has_add_btn}}" catchtap="addinput">
-        <image src="{{add_btn_url}}" mode="heightFix" style="height:100%"></image>
-      </button>
-    </view>
+  <view style="height:90%;overflow-y:scroll">
+    <select-group></select-group>
   </view>
 </template>
 
@@ -60,6 +51,5 @@
         name="{{name}}">
       </select-view>
     </view>
-
   </view>
 </template>

@@ -1,7 +1,8 @@
 {
   "component": true,
   "usingComponents": {
-    "select-view":"/components/select/select"
+    "select-view":"/components/select/select",
+    "select-group":"/components/selectGroup/selectGroup"
   },
   "componentGenerics": {
     "selectable": true

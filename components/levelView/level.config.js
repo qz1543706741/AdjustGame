@@ -86,7 +86,7 @@ const singleForm = [{
   add_btn_url: getApp().globalData.imageUrl + 'add.png',
   form_item: [{
     name: 'adjust_info',
-    template_name: 'input_group',
+    template_name: 'adjust_group',
     flex: 'input-group',
     lable: '调剂志愿',
     group_name: 'adjust_single',
@@ -94,16 +94,17 @@ const singleForm = [{
     group_items: [{
       lable: '调剂院校代码或名称',
       name: 'adjust_school_info',
-      placeholder: '建议填写院校代码'
+      placeholder: '建议填写院校代码',
+      template_name: 'input',
+      widthFullScreen:true
     }, {
       lable: '调剂专业代码或名称',
       name: 'adjust_major_info',
-      placeholder: '建议填写专业代码'
+      placeholder: '建议填写专业代码',
+      template_name: 'basic_select'
     }]
   }]
 }]
-
-
 
 
 //关卡配置
