@@ -129,29 +129,6 @@ Component({
       }
     },
 
-    //添加表单项
-    addinput: function () {
-      const form = this.data.form[0];
-      const group_index = form.form_item.length
-      if (group_index < 4) {
-        //创建一个新的item
-        const temp = Object.assign({}, form.form_item[0], {
-          group_index: group_index + 1
-        })
-
-        //新的item添加进入form
-        form.form_item.push(temp)
-        this.setData({
-          form: [form]
-        })
-      } else {
-        wx.showToast({
-          title: '最多可添加四个调剂志愿',
-          icon: 'none'
-        })
-      }
-    },
-
     //输入
     inputHandeler: function (e) {
       //防抖
