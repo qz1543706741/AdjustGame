@@ -6,7 +6,7 @@ const {
   debounce
 } = require('../../utils/util')
 let timer = null
-const app =getApp()
+const app = getApp()
 Component({
   /**
    * 组件的属性列表
@@ -34,12 +34,12 @@ Component({
       const group_index = formItem.length
       if (group_index < 4) {
         //创建一个新的item
-        const temp = Object.assign({}, form.form_item[0], {
+        const temp = Object.assign({}, formItem[0], {
           group_index: group_index + 1
         })
-
         //新的item添加进入form
         formItem.push(temp)
+        console.log(formItem);
         this.setData({
           form_item: formItem
         })
