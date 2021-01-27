@@ -1,0 +1,6 @@
+<!--components/adjustDetail/adjustDetail.wxml-->
+<block wx:for="{{majorList}}" wx:key="index">
+  <view class="card animate__animated animate__delay-half2s animate__faster animate__slideInDown">
+    <view class="label">{{item.label}}{{item.group_index}}</view>
+  </view>
+</block>

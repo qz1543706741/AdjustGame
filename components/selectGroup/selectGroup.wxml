@@ -3,13 +3,13 @@
   <block wx:for="{{form_item}}" wx:key="group_index">
     <view
       class="group animate__animated {{form_item.length===1?'animate__delay-half2s':''}} animate__faster animate__slideInDown">
-      <view class="label">{{item.lable+item.group_index}}</view>
+      <view class="label">{{item.label+item.group_index}}</view>
       <input class="input-item" type="text"
         placeholder-class="animate__animated {{form_item.length===1?'animate__delay-half2s':''}} animate__fadeIn"
         placeholder="{{item.placeholder}}" value="{{item.showText}}" bindinput="inputHandeler" data-index="{{index}}" />
-      <view style="width:98%;margin-top:5px"
-        class="{{item.showText!==''?'animate__animated animate__delay-1s animate__faster animate__slideInDown':''}}">
-        <select-view options="{{item.majorOptions}}" bind:showAddBtn="showAddBtn"></select-view>
+      <view hidden="{{!item.showText}}" style="width:98%;margin-top:5px"
+        class="{{item.showText!==''?'animate__animated animate__faster animate__slideInDown':''}}">
+        <select-view options="{{item.majorOptions}}" bind:showAddBtn="showAddBtn" name="{{item.name+item.group_index}}" bind:getSelectedItem="getSelectedItem" data-index="{{index}}"></select-view>
       </view>
     </view>
   </block>
@@ -17,6 +17,9 @@
     class="add-btn animate__animated {{form_item.length===1?'animate__delay-half2s animate__faster animate__fadeIn':''}} {{animate__slideInDown}}">
     <button hidden="{{!has_add_btn}}" catchtap="addinput">
       <image src="{{add_btn_url}}" mode="heightFix" style="height:100%"></image>
+    </button>
+    <button hidden="{{!has_add_btn}}" catchtap="saveBtn">
+      <image src="{{save_btn_url}}" mode="heightFix" style="height:100%"></image>
     </button>
   </view>
 </view>

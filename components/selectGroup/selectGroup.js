@@ -1,28 +1,36 @@
 // components/selectGroup/selectGroup.js
+
 const {
-  singleForm
-} = require('../levelView/level.config')
-const {
-  debounce
+  debounce,
+  canAdjust
 } = require('../../utils/util')
 let timer = null
 const app = getApp()
 Component({
+  behaviors: ['wx://form-field'], //内置behaviors，使自定义组件有类似于表单控件的行为。
   /**
    * 组件的属性列表
    */
   properties: {
-
+    name: {
+      type: String
+    },
+    value: {
+      type: Array
+    },
+    form_item: {
+      type: Array,
+    }
   },
 
   /**
    * 组件的初始数据
    */
   data: {
-    form_item: singleForm[0]['form_item'],
     animate__slideInDown: '',
     has_add_btn: true,
-    add_btn_url: app.globalData.imageUrl + 'add.png',
+    add_btn_url: app.globalData.imageUrl + 'add-btn.png',
+    save_btn_url: app.globalData.imageUrl + 'save.png',
     selectList: [{
       group_index: '',
       adjust_school_info: '',
@@ -44,10 +52,9 @@ Component({
           group_index: group_index + 1,
           schoolName: '',
           majorOptions: [],
-          showText:'',
+          showText: '',
           schoolCode: '',
         })
-        console.log(temp);
         //新的item添加进入form
         formItem.push(temp)
         this.setData({
@@ -66,6 +73,46 @@ Component({
         })
       }
     },
+
+    //保存表单项
+    saveBtn: function () {
+      const tempValue = this.data.form_item.map(item => {
+        return {
+          schoolCode: item.schoolCode,
+          schoolName: item.schoolName,
+          group_index: item.group_index,
+          majorCode: item.majorCode,
+          majorName: item.majorName,
+        }
+      })
+      //校验表单信息是否为空
+      if (!tempValue.every(item => {
+          return Object.entries(item).every(items => {
+            return items[1] !== ''
+          }) === true
+        })) {
+        wx.showToast({
+          title: '提交信息不能为空',
+        })
+      } else {
+        wx.showModal({
+          content: '您是否确认提交调剂志愿，保存后无法更改哦！',
+          success: ({
+            confirm
+          }) => {
+            if (confirm) {
+              this.setData({
+                value: tempValue,
+                has_add_btn: false
+              })
+              wx.setStorageSync('userAdjustInfo', this.data.value)
+              this.triggerEvent('showAdustDetail')
+            }
+          }
+        })
+      }
+    },
+
     //输入
     inputHandeler: function (e) {
       //防抖
@@ -74,6 +121,9 @@ Component({
 
     //对输入框信息进行处理
     inputDataOperate: function (e) {
+      wx.showLoading({
+        title: '',
+      })
       const {
         value
       } = e.detail
@@ -89,30 +139,19 @@ Component({
 
     //根据院校代码查询院校名称
     getSchoolName: async function (value, index) {
+      console.log();
       if (app.globalData.schoolInfo[value]) {
         const {
           school_name
         } = app.globalData.schoolInfo[value]
+        const majorResult = await this.getMajorName(value)
         this.setData({
           [`form_item[${index}].showText`]: `(${value}) ${school_name}`,
           [`form_item[${index}].schoolCode`]: value,
-          [`form_item[${index}].schoolName`]: school_name
+          [`form_item[${index}].schoolName`]: school_name,
+          [`form_item[${index}].majorOptions`]: majorResult
         })
-        // const majorOptions = this.data.majorOptions
-        //const majorResult = await this.getMajorName(value)
-        // Object.assign(inputValue, {
-        //   [name]: {
-        //     schoolName: app.globalData.schoolInfo[value].school_name,
-        //     schoolCode: value,
-        //   }
-        // })
-        // Object.assign(majorOptions, {
-        //   [name.replace(/school/, 'major')]: majorResult
-        // })
-        // this.setData({
-        //   inputValue,
-        //   majorOptions
-        // })
+        wx.hideLoading()
       }
     },
 
@@ -158,6 +197,21 @@ Component({
         }, 500)
       }
 
+    },
+
+    //获取选择的item信息
+    getSelectedItem: function (e) {
+      const {
+        index
+      } = e.currentTarget.dataset
+      const {
+        detail
+      } = e
+      console.log(e);
+      this.setData({
+        [`form_item[${index}].majorCode`]: detail.key,
+        [`form_item[${index}].majorName`]: detail.value,
+      })
     }
   }
 })

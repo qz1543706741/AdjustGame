@@ -120,11 +120,6 @@ Page({
     })
   },
 
-  // //表单添加你
-  // addInput:function(){
-
-  // },
-
   //处理表单组件提交事件
   formSubmit: function (options) {
     const {

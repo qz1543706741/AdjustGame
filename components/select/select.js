@@ -8,13 +8,6 @@ Component({
     optionsKeys: {
       type: Array,
     },
-    defaultOption: {
-      type: Object,
-      value: {
-        key: '000',
-        value: '请先填写校代码'
-      }
-    },
     name: {
       type: String
     },
@@ -25,16 +18,26 @@ Component({
   },
   data: {
     isShow: false,
-    current: {}
+    current: {
+      key: '000',
+      value: '',
+      showText: '请先填写校代码'
+    }
   },
   methods: {
     optionTap(e) {
       let dataset = e.target.dataset
+      this.triggerEvent('showAddBtn')
       this.setData({
-        current: dataset,
+        current: {
+          showText: `(${dataset.key}) ${dataset.value}`,
+          ...dataset
+        },
         isShow: false,
         value: dataset
       });
+      console.log(this.data.current);
+      this.triggerEvent('getSelectedItem',{...this.data.current})
     },
     openClose() {
       this.triggerEvent('showAddBtn')
@@ -50,11 +53,4 @@ Component({
       })
     }
   },
-  lifetimes: {
-    attached() {
-      this.setData({
-        current: Object.assign({}, this.data.defaultOption),
-      })
-    }
-  }
 })

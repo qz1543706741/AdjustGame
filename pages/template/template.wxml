@@ -2,7 +2,7 @@
 <template name="input">
   <view class="{{flex}} animate__animated animate__delay-1s animate__backInLeft"
     style="width:{{widthFullScreen?'100%':''}}">
-    <view>{{lable}}</view>
+    <view>{{label}}</view>
     <input class="input-item" placeholder-class="animate__animated animate__delay-2s animate__fadeIn"
       placeholder="{{placeholder || ''}}" name="{{name}}" type="{{rules.type || text}}"
       maxlength="{{rules.maxlength || 255}}" bindinput="inputHandeler" data-name="{{name}}"
@@ -13,25 +13,13 @@
 
 <template name="label">
   <view class="{{flex}}">
-    <view class="label">{{lable}}</view>
-  </view>
-</template>
-
-<template name="picker">
-  <view class="{{flex}}">
-    <view>{{lable}}</view>
-    <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange"
-      value="{{multiIndex}}" range="{{multiArray}}" style="width:100%">
-      <view class="picker-item">
-        {{placeholder}}
-      </view>
-    </picker>
+    <view class="label">{{label}}</view>
   </view>
 </template>
 
 <template name="adjust_group">
   <view class="{{flex}}" style="width:100%" name="{{group_name}}">
-    <view class="label">{{lable+(group_index)}}</view>
+    <view class="label">{{label+(group_index)}}</view>
     <block wx:for="{{group_items}}" wx:key="index">
       <view class="input-group">
         <template is="{{item.template_name}}" data="{{group_index:group_index,...item}}"></template>
@@ -40,15 +28,20 @@
   </view>
 </template>
 
-<template name="variable_form">
+<template name="variable_form_single">
   <view style="height:90%;overflow-y:scroll">
-    <select-group></select-group>
+    <view wx:if="{{isSelectGroupShow}}">
+      <select-group name="{{template_name}}" form_item="{{form_item}}"></select-group>
+    </view>
+    <view wx:elif="{{isAdjustDetailShow}}">
+      <adjust-detail major-list="{{adjust_detail}}"></adjust-detail>
+    </view>
   </view>
 </template>
 
 <template name="basic_select">
   <view class="{{flex}}" style="width:100%">
-    <view>{{lable}}</view>
+    <view>{{label}}</view>
     <view style="width:100%">
       <select-view options="{{majorOptions[name]||majorOptions}}" optionsKeys="{{options_keys}}"
         bind:change="selectChange" name="{{name}}">
