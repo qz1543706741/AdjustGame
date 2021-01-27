@@ -87,8 +87,47 @@ function debounce(callback, timer, waitTime = 500) {
   }, waitTime);
 }
 
-function deepclone(obj){
+//深拷贝
+function deepclone(obj) {
   return JSON.parse(JSON.stringify(obj))
+}
+
+//调剂资格判定
+async function canAdjust() {
+  const basicInfo = wx.getStorageSync('userBasicInfo')
+  const adjustList = wx.getStorageSync('userAdjustInfo').variable_form_single
+  let basicInfo_temp = ''
+  let result = false
+  await wx.request({
+    url: `${app.globalData.serverUrl}/getSubjectInfo`,
+    data: {
+      secondMajorCode: basicInfo.adjust_major_info.key
+    },
+    success(res) {
+      basicInfo_temp = res
+    }
+  })
+  //查询考生考研专业一级学科
+  if (adjustList)
+    adjustList.forEach(async item => {
+      await wx.request({
+        url: `${app.globalData.serverUrl}/getSubjectInfo`,
+        data: {
+          secondMajorCode: item.majorCode
+        },
+        success(res) {
+          if (res.catagoryCode === basicInfo_temp.catagoryCode || res.firstMajorCode === basicInfo_temp.firstMajorCode || res.secondMajorCode === basicInfo_temp.secondMajorCode) {
+            result = true
+          } else {
+            wx.showToast({
+              title: `你的调剂志愿${item.group_index}不符合调剂规定，请重新填写`,
+            })
+            result = false
+          }
+        }
+      })
+    })
+    return result
 }
 
 
@@ -98,5 +137,6 @@ module.exports = {
   toLineObject,
   interval,
   debounce,
-  deepclone
+  deepclone,
+  canAdjust
 };

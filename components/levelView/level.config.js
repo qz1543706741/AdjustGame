@@ -80,8 +80,9 @@ const userBasicInfoForm = [{
 
 //单人闯关信息填报表单
 const singleForm = [{
+  isSelectGroupShow:true,
   flex: 'adjust-form',
-  template_name: 'variable_form',
+  template_name: 'variable_form_single',
   has_add_btn: true,
   add_btn_url: getApp().globalData.imageUrl + 'add.png',
   form_item: [{
@@ -95,20 +96,9 @@ const singleForm = [{
     showText:'',
     schoolCode:'',
     schoolName:'',
+    majorCode:'',
+    majorName:'',
     majorOptions:[]
-    // group_items: [{
-    //   lable: '调剂院校代码或名称',
-    //   name: 'adjust_school_info',
-    //   placeholder: '建议填写院校代码',
-    //   template_name: 'input',
-    //   widthFullScreen:true
-    // }, {
-    //   lable: '调剂专业代码或名称',
-    //   name: 'adjust_major_info',
-    //   placeholder: '建议填写专业代码',
-    //   template_name: 'basic_select',
-    //   majorOptions:[]
-    // }]
   }]
 }]
 

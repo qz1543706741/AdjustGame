@@ -82,7 +82,7 @@ Component({
           },
           fail: (err) => {
             reject(err)
-            throw new Error(err)
+            throw new Error(err.errMsg)
           },
         })
       })

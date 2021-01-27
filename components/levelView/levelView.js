@@ -52,55 +52,24 @@ Component({
     //表单提交
     formSubmit: function (e) {
       const detail = e.detail.value
-      if (formVerify(Object.entries(detail))) {
-        //对表单特殊字段进行处理
-        // Object.entries(detail).forEach(items => {
-        //   if (items[0].indexOf('info') > -1) {
-        //     const keyArray = items[0].split('_info')
-        //     const key = keyArray[0]
-        //     const temp = isNaN(parseInt(items[1])) ? '_name' : '_code'
-        //     keyArray.shift()
-        //     delete detail[items[0]]
-        //     Object.assign(detail, {
-        //       [key + temp + keyArray.toString()]: items[1]
-        //     })
-        //   }
-        // })
-
-        //对表单数据进行处理
-        Object.keys(detail).forEach(key => {
-          if (key.indexOf('school') > -1){
-            const temparr = detail[key].split(/[\(\)\s)]/).filter(item=>item!=='')
-            detail[key] = {
-              key:temparr[0],
-              value:temparr[1]
-            }
-          }
+      //表单校验
+      if (!formVerify(Object.entries(detail))) {
+        wx.showToast({
+          title: '表单信息提交有误，请重新提交',
+          icon: 'none'
         })
-        
-        if (this.data.levelid)
-          wx.request({
-            url: `${app.globalData.serverUrl}/setUserAdjustInfo`,
-            method: 'POST',
-            data: JSON.stringify({
-              ...detail,
-              openid: app.globalData.userInfo.openid
-            }),
-            success: () => {
-              app.globalData.userAdjustInfo = detail;
-              try {
-                wx.setStorageSync('userAdjustInfo', detail)
-                this.triggerEvent('formSubmit', {
-                  show: this.properties.modalShow,
-                  ...detail
-                })
-              } catch (error) {
-                throw new Error(error)
+      } else {
+        if (!this.data.levelid) { //提交用户基本信息
+          //对表单数据进行处理
+          Object.keys(detail).forEach(key => {
+            if (key.indexOf('school') > -1) {
+              const temparr = detail[key].split(/[\(\)\s)]/).filter(item => item !== '')
+              detail[key] = {
+                key: temparr[0],
+                value: temparr[1]
               }
             }
           })
-        //提交用户基本信息
-        else
           wx.request({
             url: `${app.globalData.serverUrl}/setUserBasicInfo`,
             method: 'POST',
@@ -121,12 +90,40 @@ Component({
               }
             }
           })
-      } else {
-        wx.showToast({
-          title: '表单信息提交有误，请重新提交',
-          icon: 'none'
-        })
+        } else {
+          switch (this.data.levelid) {
+            case '0':
+              this.singLevelAjax(detail);
+              break;
+            default:
+              break;
+          }
+        }
       }
+    },
+
+    //单人关卡数据提交
+    singLevelAjax: function (detail) {
+      wx.request({
+        url: `${app.globalData.serverUrl}/setUserAdjustInfo`,
+        method: 'POST',
+        data: JSON.stringify({
+          variable_form_single: detail.variable_form_single,
+          openid: app.globalData.userInfo.openid
+        }),
+        success: () => {
+          app.globalData.userAdjustInfo = detail;
+          try {
+            this.triggerEvent('formSubmit', {
+              show: this.properties.modalShow,
+              ...detail
+            })
+          } catch (error) {
+            console.log(error);
+            throw new Error(error)
+          }
+        }
+      })
     },
 
     //输入
@@ -144,8 +141,13 @@ Component({
         name
       } = e.currentTarget.dataset
       if (isNaN(value)) return
-      if (name === 'adjust_school_info' || name === 'undergraduate_school_info')
+      if (name === 'adjust_school_info' || name === 'undergraduate_school_info') {
+        wx.showLoading({
+          title: '',
+        })
         this.getSchoolName(name, value)
+      }
+
     },
 
     //根据院校代码查询院校名称
@@ -167,6 +169,7 @@ Component({
           inputValue,
           majorOptions
         })
+        wx.hideLoading()
       }
     },
 

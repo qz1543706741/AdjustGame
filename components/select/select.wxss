@@ -51,7 +51,7 @@
   overflow-y: scroll;
   transition: height 0.5s;
   -webkit-transition: height 0.5s;
-  background-color: rgb(247, 241, 241);
+  background-color: rgb(246, 248, 234);
 }
 
 .option {

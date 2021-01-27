@@ -40,9 +40,14 @@
   </view>
 </template>
 
-<template name="variable_form">
+<template name="variable_form_single">
   <view style="height:90%;overflow-y:scroll">
-    <select-group></select-group>
+    <view wx:if="{{isSelectGroupShow}}">
+      <select-group name="{{template_name}}" form_item="{{form_item}}"></select-group>
+    </view>
+    <view>
+      <adjust-detail></adjust-detail>
+    </view>
   </view>
 </template>
 
