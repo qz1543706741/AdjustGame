@@ -1,1 +1,92 @@
 /* components/adjustDetail/adjustDetail.wxss */
+@import '../../utils/animate.wxss';
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 100%;
+  overflow: scroll;
+  /* padding-right: 20px; */
+  box-sizing: border-box;
+  /* padding: 0 10px; */
+}
+
+.list_item{
+  flex: 0 0 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 100%;
+} 
+
+.card {
+  flex: 0 0 92%;
+  display: flex;
+  flex-direction: column;
+  height: 91%;
+  border-radius: 15px;
+  font-size: 14px;
+  padding: 5px 5px;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
+  margin: 10px 0px;
+  margin-left: 5px;
+  background-color: rgb(255, 255, 255, 0.2);
+}
+
+.card>.label {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 0;
+  border-bottom: 0.5px solid rgb(185, 185, 185, 0.7);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 10px;
+  height: 100%;
+  overflow: scroll;
+}
+
+.body .panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.body .panel .group {
+  margin-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: 1px dashed #ddd;
+  border-radius: 10px;
+}
+
+.body .panel .group .label {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 5px;
+  border-bottom: 0.5px dashed #ddd;
+}
+
+.body .panel .group .line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 5px;
+  font-size: 12px !important; 
+}
+
+.picker_mask{
+  background-color: #000000;
+  z-index: 0;
+}
+
+.picker_indicator{
+  height: 40px;
+  background-color: #F6F8EA;
+  z-index: 0;
+}

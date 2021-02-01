@@ -201,6 +201,46 @@ Component({
       })
     },
 
+    //展示调剂院校成绩填报页面
+    showAdustDetail: function ({
+      detail
+    }) {
+      //隐藏填报志愿表单
+      this.setData({
+        ['form[0].isSelectGroupShow']: false
+      })
+      wx.showToast({
+        title: '正在根据您的填报志愿生成填报单',
+        icon:'none',
+        duration:9999,
+        success: () => {
+          wx.request({
+            url: `${app.globalData.serverUrl}/getAdjustDetail`,
+            method: 'POST',
+            data: JSON.stringify(detail),
+            success: (res) => {
+              //console.log(res);
+              let adjust_detail = []
+              res.data.forEach((item, index) => {
+                adjust_detail.push({
+                  label: '调剂志愿',
+                  group_index: index + 1,
+                  ...item
+                })
+              })
+              wx.setStorageSync('adjustDetail', adjust_detail)
+              this.setData({
+                ['form[0].adjust_detail']: adjust_detail,
+                //根据用户选择的调剂志愿，获取调剂填报card
+                ['form[0].isAdjustDetailShow']: true
+              })
+              wx.hideToast()
+            }
+          })
+        }
+      })
+    }
+
   },
   options: {
     multipleSlots: true

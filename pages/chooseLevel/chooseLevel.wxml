@@ -13,11 +13,11 @@
 
 <!-- 关卡 -->
 <view class="container-verticle" style="padding-top:40%">
-  <block wx:for="{{gameLevelList}}" wx:key="lable">
+  <block wx:for="{{gameLevelList}}" wx:key="label">
     <view
       class="animate__animated {{show?'':'animate__backInLeft'}} {{show?'':item.extendClass}} {{show?'animate__fadeOut':''}}  flex-verticle center">
       <image class="btn-single" src="{{imageUrl+'btn-bg.png'}}" mode="aspectFit" catchtap="handleFunc"
-        data-levelId="{{item.levelId}}" data-lable="{{item.lable}}"
+        data-levelId="{{item.levelId}}" data-label="{{item.label}}"
         style="filter:{{ item.isBggray?'grayscale(100%)':''}} " />
     </view>
   </block>

@@ -36,7 +36,7 @@ Component({
         isShow: false,
         value: dataset
       });
-      console.log(this.data.current);
+      //console.log(this.data.current);
       this.triggerEvent('getSelectedItem',{...this.data.current})
     },
     openClose() {

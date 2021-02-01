@@ -3,7 +3,7 @@
   <block wx:for="{{form_item}}" wx:key="group_index">
     <view
       class="group animate__animated {{form_item.length===1?'animate__delay-half2s':''}} animate__faster animate__slideInDown">
-      <view class="label">{{item.lable+item.group_index}}</view>
+      <view class="label">{{item.label+item.group_index}}</view>
       <input class="input-item" type="text"
         placeholder-class="animate__animated {{form_item.length===1?'animate__delay-half2s':''}} animate__fadeIn"
         placeholder="{{item.placeholder}}" value="{{item.showText}}" bindinput="inputHandeler" data-index="{{index}}" />

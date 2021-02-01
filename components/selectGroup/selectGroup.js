@@ -106,6 +106,8 @@ Component({
                 has_add_btn: false
               })
               wx.setStorageSync('userAdjustInfo', this.data.value)
+              //展示调剂院校成绩填报页面
+              this.triggerEvent('showAdustDetail', this.data.value)
             }
           }
         })
@@ -138,7 +140,6 @@ Component({
 
     //根据院校代码查询院校名称
     getSchoolName: async function (value, index) {
-      console.log();
       if (app.globalData.schoolInfo[value]) {
         const {
           school_name
@@ -206,11 +207,12 @@ Component({
       const {
         detail
       } = e
-      console.log(e);
+      //console.log(e);
       this.setData({
         [`form_item[${index}].majorCode`]: detail.key,
         [`form_item[${index}].majorName`]: detail.value,
       })
-    }
+    },
+
   }
 })

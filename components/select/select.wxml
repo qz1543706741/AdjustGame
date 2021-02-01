@@ -5,7 +5,7 @@
   <view class="option-list" style="height:{{isShow?'200px':'0px'}}">
     <text class="option" wx:for="{{options}}" wx:key="index" data-key="{{item[optionsKeys[0]]||item.major_code}}"
       data-value="{{item[optionsKeys[1]]||item.major_name}}"
-      catchtap="optionTap">({{item[optionsKeys[0]]||item.major_code}}) {{item[optionsKeys[1]]||item.major_name}}
+      catchtap="optionTap">({{item[optionsKeys[0]]||item.major_code||item}}) {{item[optionsKeys[1]]||item.major_name}}
     </text>
   </view>
 </view>

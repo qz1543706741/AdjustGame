@@ -127,7 +127,7 @@ Page({
     } = options
     
     this.setUserScore(wx.getStorageSync('userGameInfo').score, detail)
-  }
+  },
 
 
 });
