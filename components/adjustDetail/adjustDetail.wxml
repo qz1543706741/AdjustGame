@@ -1,9 +1,9 @@
 <!--components/adjustDetail/adjustDetail.wxml-->
-<scroll-view class="animate__animated animate__delay-half2s animate__faster animate__backInLeft" scroll-x enable-flex
-  style="height:100%;box-sizing:border-box;">
-  <view class="container">
-    <block wx:for="{{majorList}}" wx:key="index">
-      <!-- 防止边缘被裁切 -->
+<scroll-view class="animate__animated animate__backInLeft"
+  style="height:100%;box-sizing:border-box;white-space: nowrap;" bind:scroll="pickerDragend" scroll-x>
+  <block wx:for="{{majorList}}" wx:key="index">
+    <!-- 防止边缘被裁切 -->
+    <view class="container">
       <view class="list_item">
         <view class="card">
           <view class="label">{{item.label}}{{item.group_index}}</view>
@@ -21,9 +21,30 @@
               </view>
               <view class="group">
                 <view class="label">课程信息</view>
-                <view class="line animate__animated animate__delay-half2s animate__fadeIn">
+                <block wx:for="{{item.subject_info}}" wx:for-item="subject_info" wx:for-index="idx" wx:key="name">
+                  <view class="line animate__animated animate__delay-1s animate__fadeIn">
+                    <picker-view indicator-class="picker_indicator" mask-class="picker_mask"
+                      style="width: 100%; height: 40px;" value="{{index<2?[0,50]:[0,100]}}" bindchange="changePicker"
+                      bindpickend="endPicker" data-subject_name="{{subject_info.name}}" data-major_index="{{index}}"
+                      data-subject_index="{{idx}}">
+                      <picker-view-column style="flex:0 0 80%">
+                        <view wx:for="{{subject_info.list}}" wx:key="index" style="line-height: 40px;font-size: 12px">
+                          {{item}}</view>
+                      </picker-view-column>
+                      <picker-view-column>
+                        <view wx:for="{{index<2?scoreUnder100:scoreAbove100}}" wx:key="index"
+                          style="line-height: 40px; text-align: center;font-size: 12px"
+                          data-subject_name="{{item.name}}">
+                          {{item}}</view>
+                      </picker-view-column>
+                    </picker-view>
+                  </view>
+                </block>
+
+                <!-- <view class="line animate__animated animate__delay-1s animate__fadeIn">
                   <picker-view indicator-class="picker_indicator" mask-class="picker_mask"
-                    style="width: 100%; height: 40px;" value="{{value}}" bindchange="bindChange">
+                    style="width: 100%; height: 40px;" value="{{[0,50]}}" bindchange="changePolitics"
+                    bindpickend="endPolitics">
                     <picker-view-column style="flex:0 0 80%">
                       <view wx:for="{{item.politicsCours}}" wx:key="index" style="line-height: 40px;font-size: 12px">
                         {{item}}</view>
@@ -35,9 +56,9 @@
                     </picker-view-column>
                   </picker-view>
                 </view>
-                <view class="line animate__animated animate__delay-half2s animate__fadeIn">
+                <view class="line animate__animated animate__delay-1s animate__fadeIn">
                   <picker-view indicator-class="picker_indicator" mask-class="picker_mask"
-                    style="width: 100%; height: 40px;" value="{{value}}" bindchange="bindChange">
+                    style="width: 100%; height: 40px;" value="{{[0,50]}}" bindchange="">
                     <picker-view-column style="flex:0 0 80%">
                       <view wx:for="{{item.foreignCourse}}" wx:key="index" style="line-height: 40px;font-size: 12px">
                         {{item}}</view>
@@ -49,9 +70,9 @@
                     </picker-view-column>
                   </picker-view>
                 </view>
-                <view class="line animate__animated animate__delay-half2s animate__fadeIn">
+                <view class="line animate__animated animate__delay-1s animate__fadeIn">
                   <picker-view indicator-class="picker_indicator" mask-class="picker_mask"
-                    style="width: 100%; height: 40px;" value="{{value}}" bindchange="bindChange">
+                    style="width: 100%; height: 40px;" value="{{[0,100]}}" bindchange="">
                     <picker-view-column style="flex:0 0 80%">
                       <view wx:for="{{item.majorCourse_1}}" wx:key="index" style="line-height: 40px;font-size: 12px">
                         {{item}}</view>
@@ -63,9 +84,9 @@
                     </picker-view-column>
                   </picker-view>
                 </view>
-                <view class="line animate__animated animate__delay-half2s animate__fadeIn">
+                <view class="line animate__animated animate__delay-1s animate__fadeIn">
                   <picker-view indicator-class="picker_indicator" mask-class="picker_mask"
-                    style="width: 100%; height: 40px;" value="{{value}}" bindchange="bindChange">
+                    style="width: 100%; height: 40px;" value="{{[0,100]}}" bindchange="">
                     <picker-view-column style="flex:0 0 80%">
                       <view wx:for="{{item.majorCourse_2}}" wx:key="index" style="line-height: 40px;font-size: 12px">
                         {{item}}</view>
@@ -76,13 +97,14 @@
                         {{item}}</view>
                     </picker-view-column>
                   </picker-view>
-                </view>
+                </view> -->
               </view>
             </view>
           </view>
         </view>
       </view>
-    </block>
-  </view>
+    </view>
+  </block>
+
 
 </scroll-view>

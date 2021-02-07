@@ -4,9 +4,9 @@
     style="width:{{widthFullScreen?'100%':''}}">
     <view>{{label}}</view>
     <input class="input-item" placeholder-class="animate__animated animate__delay-2s animate__fadeIn"
-      placeholder="{{placeholder || ''}}" name="{{name}}" type="{{rules.type || text}}"
-      maxlength="{{rules.maxlength || 255}}" bindinput="inputHandeler" data-name="{{name}}"
-      data-group_index="{{group_index}}"
+      placeholder="{{placeholder || ''}}" name="{{name}}" type="{{rules.type || 'text'}}"
+      maxlength="{{inputValue[name] && inputValue[name].schoolName ? 255 : rules.maxlength }}" bindinput="inputHandeler"
+      data-name="{{name}}" data-group_index="{{group_index}}"
       value="{{inputValueKey?inputValue[name]?'('+inputValue[name].schoolCode+') '+inputValue[name].schoolName:'':''}}" />
   </view>
 </template>
@@ -31,10 +31,11 @@
 <template name="variable_form_single">
   <view style="height:90%;overflow-y:scroll">
     <view wx:if="{{isSelectGroupShow}}">
-      <select-group name="{{template_name}}" form_item="{{form_item}}" bind:showAdustDetail="showAdustDetail"></select-group>
+      <select-group name="{{template_name}}" form_item="{{form_item}}" bind:showAdustDetail="showAdustDetail">
+      </select-group>
     </view>
     <view wx:elif="{{isAdjustDetailShow}}" style="height:100%">
-      <adjust-detail major-list="{{adjust_detail}}"></adjust-detail>
+      <adjust-detail major-list="{{adjust_detail}}" name="{{adjust_detail_name}}"></adjust-detail>
     </view>
   </view>
 </template>

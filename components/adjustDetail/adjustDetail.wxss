@@ -1,23 +1,19 @@
 /* components/adjustDetail/adjustDetail.wxss */
 @import '../../utils/animate.wxss';
+
 .container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  display: inline-block;
   height: 100%;
-  overflow: scroll;
-  /* padding-right: 20px; */
-  box-sizing: border-box;
-  /* padding: 0 10px; */
+  width: 100%;
 }
 
-.list_item{
+.list_item {
   flex: 0 0 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   height: 100%;
-} 
+}
 
 .card {
   flex: 0 0 92%;
@@ -77,15 +73,15 @@
   justify-content: space-between;
   align-items: center;
   margin: 5px 5px;
-  font-size: 12px !important; 
+  font-size: 12px !important;
 }
 
-.picker_mask{
+.picker_mask {
   background-color: #000000;
   z-index: 0;
 }
 
-.picker_indicator{
+.picker_indicator {
   height: 40px;
   background-color: #F6F8EA;
   z-index: 0;

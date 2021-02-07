@@ -52,6 +52,7 @@ Component({
     //表单提交
     formSubmit: function (e) {
       const detail = e.detail.value
+      console.log(e);
       //表单校验
       if (!formVerify(Object.entries(detail))) {
         wx.showToast({
@@ -93,7 +94,7 @@ Component({
         } else {
           switch (this.data.levelid) {
             case '0':
-              this.singLevelAjax(detail);
+              this.singLevelAjax(wx.getStorageSync('variable_form_single'));
               break;
             default:
               break;
@@ -104,24 +105,42 @@ Component({
 
     //单人关卡数据提交
     singLevelAjax: function (detail) {
-      wx.request({
-        url: `${app.globalData.serverUrl}/setUserAdjustInfo`,
-        method: 'POST',
-        data: JSON.stringify({
-          variable_form_single: detail.variable_form_single,
-          openid: app.globalData.userInfo.openid
-        }),
-        success: () => {
-          app.globalData.userAdjustInfo = detail;
-          try {
-            this.triggerEvent('formSubmit', {
-              show: this.properties.modalShow,
-              ...detail
+      const temp = detail && detail.every(item => item.subject_info) //判断是否填写调剂志愿分数
+      console.log(temp);
+      wx.showModal({
+        content: temp ? '是否确认提交您的调剂信息，提交后不可更改哦！' : '您还可以获取更精准的调剂结果，确认要放弃这次机会吗？',
+        confirmText: temp ? '确定' : '确认放弃',
+        cancelText: temp ? '取消' : '我再想想',
+        success: ({
+          confirm
+        }) => {
+          if (confirm)
+            wx.request({
+              url: `${app.globalData.serverUrl}/setUserAdjustInfo`,
+              method: 'POST',
+              data: JSON.stringify({
+                variable_form_single: detail,
+                openid: app.globalData.userInfo.openid
+              }),
+              success: () => {
+                app.globalData.userAdjustInfo = detail;
+                try {
+                  this.triggerEvent('formSubmit', {
+                    show: this.properties.modalShow,
+                    ...detail
+                  })
+                } catch (error) {
+                  console.log(error);
+                  throw new Error(error)
+                }
+              }
             })
-          } catch (error) {
-            console.log(error);
-            throw new Error(error)
-          }
+          else if (!temp)
+            wx.showToast({
+              icon: 'none',
+              title: '您可以点击✔填写更详细的数据，获取更精准的结果',
+              duration: 1500
+            })
         }
       })
     },
@@ -143,8 +162,9 @@ Component({
       if (isNaN(value)) return
       if (name === 'adjust_school_info' || name === 'undergraduate_school_info') {
         wx.showLoading({
-          title: '',
+          title: '获取学校数据中',
         })
+        wx.hideKeyboard()
         this.getSchoolName(name, value)
       }
 
@@ -211,8 +231,8 @@ Component({
       })
       wx.showToast({
         title: '正在根据您的填报志愿生成填报单',
-        icon:'none',
-        duration:9999,
+        icon: 'none',
+        duration: 9999,
         success: () => {
           wx.request({
             url: `${app.globalData.serverUrl}/getAdjustDetail`,
@@ -234,7 +254,6 @@ Component({
                 //根据用户选择的调剂志愿，获取调剂填报card
                 ['form[0].isAdjustDetailShow']: true
               })
-              wx.hideToast()
             }
           })
         }

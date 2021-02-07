@@ -6,7 +6,8 @@
       <view class="label">{{item.label+item.group_index}}</view>
       <input class="input-item" type="text"
         placeholder-class="animate__animated {{form_item.length===1?'animate__delay-half2s':''}} animate__fadeIn"
-        placeholder="{{item.placeholder}}" value="{{item.showText}}" bindinput="inputHandeler" data-index="{{index}}" />
+        placeholder="{{item.placeholder}}" value="{{item.showText}}" bindinput="inputHandeler" data-index="{{index}}" 
+        type="{{item.rules.type}}" maxlength="{{item.rules.maxlength}}"/>
       <view hidden="{{!item.showText}}" style="width:98%;margin-top:5px"
         class="{{item.showText!==''?'animate__animated animate__faster animate__slideInDown':''}}">
         <select-view options="{{item.majorOptions}}" bind:showAddBtn="showAddBtn" name="{{item.name+item.group_index}}" bind:getSelectedItem="getSelectedItem" data-index="{{index}}"></select-view>

@@ -89,8 +89,12 @@ Page({
   getUserInfo: function (e) {
     if (e.detail.userInfo) {
       if (!wx.getStorageSync('userInfo')) {
+        wx.showLoading({
+          title: '获取数据中',
+        })
         this.userLoginInfo(e.detail.userInfo)
           .then(() => {
+            wx.hideLoading()
             wx.redirectTo({
               url: '../chooseLevel/chooseLevel'
             })

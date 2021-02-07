@@ -19,7 +19,14 @@ Component({
       type: Array
     },
     form_item: {
-      type: Array,
+      type: Array
+    }
+  },
+
+  lifetimes: {
+    attached() {
+      if (wx.getStorageSync('variable_form_single'))
+        wx.setStorageSync('variable_form_single', undefined)
     }
   },
 
@@ -96,7 +103,7 @@ Component({
         })
       } else {
         wx.showModal({
-          content: '您是否确认提交调剂志愿，保存后无法更改哦！',
+          content: '您是否确认保存调剂志愿，保存后无法更改哦！',
           success: ({
             confirm
           }) => {
@@ -123,8 +130,9 @@ Component({
     //对输入框信息进行处理
     inputDataOperate: function (e) {
       wx.showLoading({
-        title: '',
+        title: '获取学校数据中',
       })
+      wx.hideKeyboard()
       const {
         value
       } = e.detail
@@ -207,10 +215,21 @@ Component({
       const {
         detail
       } = e
-      //console.log(e);
+      const tempValue = {
+        schoolCode: this.data.form_item[index].schoolCode,
+        schoolName: this.data.form_item[index].schoolName,
+        group_index: this.data.form_item[index].group_index,
+        majorCode: detail.key,
+        majorName: detail.value
+      }
+      let variable_form_single = wx.getStorageSync('variable_form_single')
+      if (!variable_form_single) variable_form_single = []
+      variable_form_single[index] = tempValue
+      wx.setStorageSync('variable_form_single', variable_form_single)
       this.setData({
         [`form_item[${index}].majorCode`]: detail.key,
         [`form_item[${index}].majorName`]: detail.value,
+        value: wx.getStorageSync('variable_form_single')
       })
     },
 
